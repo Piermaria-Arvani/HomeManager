@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "70126372020",
+    "firebase_url": "https://homemanager-b04b5.firebaseio.com",
+    "project_id": "homemanager-b04b5",
+    "storage_bucket": "homemanager-b04b5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:70126372020:android:3b82bf9655396e12",
+        "android_client_info": {
+          "package_name": "it.unitn.disi.homemanager"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "70126372020-5lr2oaquuaoc3osp5vvhq9em0lpsbt3a.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "it.unitn.disi.homemanager",
+            "certificate_hash": "10c86e8aca451684d0ba81a5e9135c820e5107b9"
+          }
+        },
+        {
+          "client_id": "70126372020-d89i66g4kri9i2varknho1u2sarbl0fp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCX_tUv5lyGebf4VDqrrinYn7jE6AxmofA"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "70126372020-d89i66g4kri9i2varknho1u2sarbl0fp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

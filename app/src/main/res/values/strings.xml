@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">HomeManager</string>
+    <string name="facebook_app_id">291469567947342</string>
+    <string name="title_activity_home_manager">HomeManager</string>
+    <string name="action_settings">action_settings</string>
+    <string name="logout">Logout</string>
+    <string name="enter_email">Enter email</string>
+    <string name="HomeText"></string>
+    <string name="oppure">Oppure</string>
+    <string name="crea_nuovo_gruppo">Crea un nuovo gruppo</string>
+    <string name="entra_gruppo">Entra in un gruppo</string>
+    <string name="insert_name">Inserisci il nome del gruppo</string>
+    <string name="crea">Crea</string>
+    <string name="annulla">Annulla</string>
+    <string name="aggiungi_membro">Aggiungi un membro</string>
+    <string name="title_activity_group_home">GroupHomeActivity</string>
+</resources>
