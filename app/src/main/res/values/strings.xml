@@ -14,4 +14,12 @@
     <string name="annulla">Annulla</string>
     <string name="aggiungi_membro">Aggiungi un membro</string>
     <string name="title_activity_group_home">GroupHomeActivity</string>
+    <string name="genera_qrcode">Genera QrCode</string>
+    <string name="scan_qr_code">Scan QR Code</string>
+    <string name="scanQr_message">Scannerizza il QR code sul dispositivo del tuo nuovo coinquilino per accedere al suo gruppo !</string>
+    <string name="calendar_image">calendar image</string>
+    <string name="money">money</string>
+    <string name="cleaning">cleaning</string>
+    <string name="contacts">contacts</string>
+    <string name="numeri_utili">Numeri Utili</string>
 </resources>

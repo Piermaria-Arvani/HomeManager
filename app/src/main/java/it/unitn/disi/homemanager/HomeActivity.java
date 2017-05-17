@@ -38,7 +38,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     private Button buttonCreate;
     private Button buttonJoin;
     private Button buttonCreate2;
-    private Button annulla;
+    private Button buttonAnnulla;
     private Toolbar myToolbar;
 
 
@@ -58,14 +58,14 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         opText = (TextView) findViewById(R.id.oppure);
         nameText = (EditText) findViewById(R.id.text_insert_group_name);
         buttonCreate2 = (Button) findViewById(R.id.crea_gruppo2);
-        annulla = (Button) findViewById(R.id.annulla);
+        buttonAnnulla = (Button) findViewById(R.id.annulla);
 
         setSupportActionBar(myToolbar);
         //adding listener to view
         buttonCreate.setOnClickListener(this);
         buttonJoin.setOnClickListener(this);
         buttonCreate2.setOnClickListener(this);
-        annulla.setOnClickListener(this);
+        buttonAnnulla.setOnClickListener(this);
 
         text = "Ciao "+ name  + ",\n non fai ancora parte di nessun gruppo-appartamento";
         homeText.setText(text);
@@ -80,22 +80,22 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
             opText.setVisibility(View.INVISIBLE);
             buttonCreate2.setVisibility(View.VISIBLE);
             nameText.setVisibility(View.VISIBLE);
-            annulla.setVisibility(View.VISIBLE);
+            buttonAnnulla.setVisibility(View.VISIBLE);
         }
 
-        if (view == annulla) {
+        if (view == buttonAnnulla) {
             homeText.setVisibility(View.VISIBLE);
             buttonCreate.setVisibility(View.VISIBLE);
             buttonJoin.setVisibility(View.VISIBLE);
             opText.setVisibility(View.VISIBLE);
             buttonCreate2.setVisibility(View.INVISIBLE);
             nameText.setVisibility(View.INVISIBLE);
-            annulla.setVisibility(View.INVISIBLE);
+            buttonAnnulla.setVisibility(View.INVISIBLE);
         }
 
         //starting send notification activity
         if(view == buttonJoin){
-            //startActivity(new Intent(this, ActivitySendPushNotification.class));
+            startActivity(new Intent(this, JoinGroupActivity.class));
         }
 
         if (view == buttonCreate2) {

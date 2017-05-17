@@ -9,9 +9,7 @@ import android.content.SharedPreferences;
 
 import com.google.firebase.iid.FirebaseInstanceId;
 
-/**
- * Created by Belal on 03/11/16.
- */
+
 
 public class SharedPrefManager {
     private static final String SHARED_PREF_NAME = "FCMSharedPref";
