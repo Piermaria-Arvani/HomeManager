@@ -10,9 +10,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,11 +24,14 @@ import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
 import com.journeyapps.barcodescanner.BarcodeEncoder;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -44,21 +44,29 @@ public class GroupHomeActivity extends AppCompatActivity {
     private Calendar calendar;
     private SimpleDateFormat mdformat;
     private String date;
+    private TextView calendarText;
+    private TextView cleanText;
+    private String eventString;
+    private String cleanString;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_group_home);
 
-        calendar = Calendar.getInstance();
-        mdformat = new SimpleDateFormat("yyyy / MM / dd ");
-        date = mdformat.format(calendar.getTime());
+        calendarText = (TextView) findViewById(R.id.calendar_text);
+        cleanText = (TextView) findViewById(R.id.cleaning_text);
 
-       // getGroupInfo();
+        calendar = Calendar.getInstance();
+        mdformat = new SimpleDateFormat("yyyy/MM/dd ");
+        date = mdformat.format(calendar.getTime());
+        System.out.println("data" + date);
+
+        getGroupInfo();
 
         context= getApplicationContext();
         myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
-        myToolbar.setTitle("miao");
+        myToolbar.setTitle(SharedPrefManager.getInstance(context).getGroupName());
 
         setSupportActionBar(myToolbar);
     }
@@ -110,14 +118,54 @@ public class GroupHomeActivity extends AppCompatActivity {
                     public void onResponse(String response) {
                         try {
                             JSONObject obj = new JSONObject(response);
-                            System.out.println(obj.getString("message"));
+
+                            if(Integer.parseInt(obj.getString("numberOfEvents")) > 0) {
+                                eventString = "In programma oggi: \n \n";
+
+                                JSONArray jsonEventsDescriptions = obj.getJSONArray("events_descriptions");
+                                for (int i = 0; i < jsonEventsDescriptions.length(); i++) {
+                                    JSONObject d = jsonEventsDescriptions.getJSONObject(i);
+                                    eventString += "- " + d.getString("description") + "\n";
+                                }
+                                calendarText.setText(eventString);
+                             }else{
+                                eventString = "Non ci sono eventi in programma per oggi";
+                                calendarText.setText(eventString);
+                            }
+
+                            if(Integer.parseInt(obj.getString("numberOfClean")) > 0) {
+                                cleanString = "I tuoi compiti : \n";
+
+                                JSONArray jsonCleanDescriptions = obj.getJSONArray("clean_descriptions");
+                                for (int i = 0; i < jsonCleanDescriptions.length(); i++) {
+                                    JSONObject o = jsonCleanDescriptions.getJSONObject(i);
+                                    Date date = new Date();
+                                    SimpleDateFormat date_format = new SimpleDateFormat("yyyy-MM-dd");
+                                    try {
+                                        date = date_format.parse(o.getString("clean_date"));
+                                    } catch (ParseException e) {
+                                        e.printStackTrace();
+                                    }
+                                    String data = String.valueOf(date);
+                                    String[] splited = data.split("\\s+");
+                                    String nomeGiorno  = getDayNameInItalian(splited[0]);
+                                    String numeroGiorno = splited [2];
+
+                                    cleanString += "- " + o.getString("description") + " " + nomeGiorno + " "+ numeroGiorno + "\n";
+                                }
+                                cleanText.setText(cleanString);
+                            }else{
+                                cleanString = "Non hai pulizie da fare in programma";
+                                cleanText.setText(cleanString);
+                            }
+
+                            System.out.println(obj);
 
                         } catch (JSONException e) {
                             System.out.println("eccezione JSON");
                             e.printStackTrace();
                         }
-                        startActivity(new Intent(context, GroupHomeActivity.class));
-                        finish();
+
                     }
                 },
                 new Response.ErrorListener() {
@@ -142,6 +190,29 @@ public class GroupHomeActivity extends AppCompatActivity {
         MyVolley.getInstance(this).addToRequestQueue(stringRequest);
     }
 
+
+    public String getDayNameInItalian(String day){
+        String dayName ="";
+
+        switch (day) {
+            case "Mon":  dayName = "Lunedì";
+                break;
+            case "Tue":  dayName = "Martedì";
+                break;
+            case "Wed":  dayName = "Mercoledì";
+                break;
+            case "Thu":  dayName = "Giovedì";
+                break;
+            case "Fri":  dayName = "Venerdì";
+                break;
+            case "Sat":  dayName = "Sabato";
+                break;
+            case "Sun":  dayName = "Domenica";
+                break;
+        }
+
+        return dayName;
+    }
     public void logout(){
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Logging out ...");

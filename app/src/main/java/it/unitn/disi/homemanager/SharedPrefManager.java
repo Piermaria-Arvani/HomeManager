@@ -19,6 +19,7 @@ public class SharedPrefManager {
     private static final String TAG_FACEBOOK_NAME = "tagfacebookname";
     private static final String TAG_DEBIT_CREDIT ="tagdebitcredit" ;
     private static final String TAG_GROUP_ID ="taggroupid" ;
+    private static final String TAG_GROUP_NAME = "taggroupname";
 
     private static SharedPrefManager mInstance;
     private static Context mCtx;
@@ -116,5 +117,17 @@ public class SharedPrefManager {
     public String getGroupId(){
         SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
         return  sharedPreferences.getString(TAG_GROUP_ID, null);
+    }
+    public boolean saveGroupName (String group_name){
+        SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
+        editor.putString(TAG_GROUP_NAME, group_name);
+        editor.apply();
+        return true;
+    }
+    public String getGroupName(){
+        SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
+        return  sharedPreferences.getString(TAG_GROUP_NAME, null);
     }
 }

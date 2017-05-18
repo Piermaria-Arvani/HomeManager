@@ -151,6 +151,7 @@ public class Login extends AppCompatActivity {
                                 if(obj.getString("group_id").equals("null")){
                                     SharedPrefManager.getInstance(context).saveGroupId(Integer.parseInt( obj.getString("group_id")));
                                     SharedPrefManager.getInstance(context).saveDebitCredit(Integer.parseInt( obj.getString("debit_credit")));
+                                    SharedPrefManager.getInstance(context).saveGroupName(obj.getString("group_name"));
                                     startActivity(new Intent(context, HomeActivity.class));
                                 }else{
                                     startActivity(new Intent(context, GroupHomeActivity.class));
@@ -202,24 +203,25 @@ public class Login extends AppCompatActivity {
             progressDialog.dismiss();
             Toast.makeText(this, "Token not generated", Toast.LENGTH_LONG).show();
         }
-        System.out.println("is logged prima prova");
+
         StringRequest stringRequest = new StringRequest(com.android.volley.Request.Method.POST, EndPoints.URL_CONTROL_LOGIN,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         progressDialog.dismiss();
-                        System.out.println("is logged seconda prova");
+
                         try {
                             JSONObject obj = new JSONObject(response);
                             System.out.println(obj.getString("message"));
                             if(obj.getString("message").equals("Just Logged")){
-                                System.out.println("is logged terza prova");
+
                                 SharedPrefManager.getInstance(context).saveFacebookID(obj.getString("facebook_id"));
                                 SharedPrefManager.getInstance(context).saveFacebookName(obj.getString("name"));
                                 SharedPrefManager.getInstance(context).saveDebitCredit(Integer.parseInt(obj.getString("debit_credit")));
                                 System.out.println("group_id" + obj.getString("group_id"));
                                 if(!(obj.getString("group_id") == "null")){
                                     SharedPrefManager.getInstance(context).saveGroupId(Integer.parseInt( obj.getString("group_id")));
+                                    SharedPrefManager.getInstance(context).saveGroupName(obj.getString("group_name"));
                                     startActivity(new Intent(context,GroupHomeActivity.class));
                                 }else{
                                     startActivity(new Intent(context, HomeActivity.class));

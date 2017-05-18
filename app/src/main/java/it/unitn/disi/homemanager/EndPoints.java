@@ -6,7 +6,7 @@ package it.unitn.disi.homemanager;
 
 
 public class EndPoints {
-    public static final String URL_BASE ="http://192.168.43.69/";
+    public static final String URL_BASE ="http://192.168.1.7/";
     public static final String URL_REGISTER_DEVICE = URL_BASE + "phpScripts/RegisterDevice.php";
     public static final String URL_REGISTER_GROUP = URL_BASE + "phpScripts/InsertGroup.php";
     public static final String URL_JOIN_GROUP = URL_BASE + "phpScripts/JoinGroup.php";
