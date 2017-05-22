@@ -10,6 +10,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,7 +38,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-public class GroupHomeActivity extends AppCompatActivity {
+public class GroupHomeActivity extends AppCompatActivity implements View.OnClickListener {
 
     ProgressDialog progressDialog;
     Context context ;
@@ -46,8 +48,10 @@ public class GroupHomeActivity extends AppCompatActivity {
     private String date;
     private TextView calendarText;
     private TextView cleanText;
+    private TextView moneyText;
     private String eventString;
     private String cleanString;
+    private ImageButton calendarButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,19 +60,39 @@ public class GroupHomeActivity extends AppCompatActivity {
 
         calendarText = (TextView) findViewById(R.id.calendar_text);
         cleanText = (TextView) findViewById(R.id.cleaning_text);
+        moneyText =(TextView) findViewById(R.id.money_text);
+        calendarButton = (ImageButton) findViewById(R.id.calendar_button);
 
         calendar = Calendar.getInstance();
-        mdformat = new SimpleDateFormat("yyyy/MM/dd ");
+        mdformat = new SimpleDateFormat("yyyy-MM-dd ");
         date = mdformat.format(calendar.getTime());
         System.out.println("data" + date);
 
+        calendarButton.setOnClickListener(this);
+
         getGroupInfo();
+
+        int debit_credit = Integer.parseInt(SharedPrefManager.getInstance(context).getDebitCredit());
+        if(debit_credit == 0){
+            moneyText.setText("Non hai debiti con i tuoi coinquilini");
+        }else if (debit_credit < 0) {
+            moneyText.setText("Sei in debito con i tuoi coinquilini di " + debit_credit + " €");
+        }else{
+            moneyText.setText("I tuoi coinquilini ti devono " + debit_credit + " €");
+        }
 
         context= getApplicationContext();
         myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         myToolbar.setTitle(SharedPrefManager.getInstance(context).getGroupName());
 
         setSupportActionBar(myToolbar);
+    }
+
+    @Override
+    public void onClick(View view) {
+        if (view == calendarButton) {
+            startActivity(new Intent(this, EventsActivity.class));
+        }
     }
 
     @Override
@@ -119,13 +143,16 @@ public class GroupHomeActivity extends AppCompatActivity {
                         try {
                             JSONObject obj = new JSONObject(response);
 
+                            //riempimento sezione eventi odierni
                             if(Integer.parseInt(obj.getString("numberOfEvents")) > 0) {
                                 eventString = "In programma oggi: \n \n";
 
                                 JSONArray jsonEventsDescriptions = obj.getJSONArray("events_descriptions");
                                 for (int i = 0; i < jsonEventsDescriptions.length(); i++) {
                                     JSONObject d = jsonEventsDescriptions.getJSONObject(i);
-                                    eventString += "- " + d.getString("description") + "\n";
+                                    String temp = d.getString("event_hour");
+                                    String hour = temp.substring(0,5);
+                                    eventString += "- " + d.getString("description") + " alle "+ hour + "\n";
                                 }
                                 calendarText.setText(eventString);
                              }else{
@@ -133,6 +160,7 @@ public class GroupHomeActivity extends AppCompatActivity {
                                 calendarText.setText(eventString);
                             }
 
+                            //riempimento sezione pulizie
                             if(Integer.parseInt(obj.getString("numberOfClean")) > 0) {
                                 cleanString = "I tuoi compiti : \n";
 

@@ -22,4 +22,8 @@
     <string name="cleaning">cleaning</string>
     <string name="contacts">contacts</string>
     <string name="numeri_utili">Numeri Utili</string>
+    <string name="lista_della_spesa">Lista della spesa</string>
+    <string name="title_activity_events">EventsActivity</string>
+    <string name="eventi_in_programma">Eventi in programma:</string>
+    <string name="non_ci_sono_eventi_in_programma">Non ci sono eventi in programma</string>
 </resources>
