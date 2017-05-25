@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    tools:context=".ShoppingListActivity">
+
+
+
+    <EditText
+        android:id="@+id/dialog_item"
+        android:hint="@string/aggiungi_un_elemento"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:text=""
+        android:textSize="20sp"
+        />
+
+
+
+    <Button
+        android:id="@+id/annulla"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/chiudi"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_below="@+id/dialog_item"
+        android:background="@color/zxing_viewfinder_laser"
+        android:layout_marginBottom="@dimen/activity_vertical_margin"
+        />
+    <Button
+        android:id="@+id/insert"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/inserisci"
+        android:layout_below="@+id/dialog_item"
+        android:layout_toEndOf="@id/annulla"
+        android:layout_toRightOf="@id/annulla"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:background="@color/com_facebook_button_background_color_disabled"
+        android:layout_marginBottom="@dimen/activity_vertical_margin"
+        />
+
+
+</RelativeLayout>

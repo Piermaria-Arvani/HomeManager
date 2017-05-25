@@ -5,15 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="it.unitn.disi.homemanager.EventsActivity"
-    tools:showIn="@layout/activity_events">
-
+    tools:context="it.unitn.disi.homemanager.ContactsActivity"
+    tools:showIn="@layout/activity_contacts">
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/eventi_in_programma"
+        android:text="@string/rubrica"
         android:textSize="20sp"
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:background="#ffb380"/>
@@ -25,15 +24,5 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content" >
     </ListView>
-
-    <TextView
-        android:id="@+id/text_no_eventi"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/non_ci_sono_eventi_in_programma"
-        android:gravity="center"
-        android:includeFontPadding="false"
-        android:visibility="gone"
-        />
 
 </RelativeLayout>

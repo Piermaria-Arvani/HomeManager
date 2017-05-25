@@ -49,4 +49,10 @@ public class ItemsComplexAdapter extends ArrayAdapter<Event> {
 
         return view;
     }
+
+
+    public void reset (){
+        mEvents.clear();
+        notifyDataSetChanged();
+    }
 }

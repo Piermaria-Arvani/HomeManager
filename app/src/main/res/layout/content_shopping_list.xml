@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="it.unitn.disi.homemanager.ShoppingListActivity"
+    tools:showIn="@layout/activity_shopping_list">
+
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/lista_della_spesa"
+        android:textSize="20sp"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:background="#ffb380"/>
+
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <TextView
+        android:id="@+id/text_lista_vuota"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/non_ci_sono_elementi_nella_vostra_lista"
+        android:gravity="center"
+        android:includeFontPadding="false"
+        android:visibility="gone"
+        />
+
+    <TextView
+        android:id="@+id/istruzioni"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/swipe_a_sinistra_per_eliminare_un_elemento"
+        android:gravity="center"
+        android:textColor="#ffffff"
+        android:background="#b3b3b3"
+        />
+
+</LinearLayout>

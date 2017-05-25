@@ -40,8 +40,8 @@ import java.util.Map;
 
 public class GroupHomeActivity extends AppCompatActivity implements View.OnClickListener {
 
-    ProgressDialog progressDialog;
-    Context context ;
+    private ProgressDialog progressDialog;
+    private Context context ;
     private Toolbar myToolbar;
     private Calendar calendar;
     private SimpleDateFormat mdformat;
@@ -52,6 +52,9 @@ public class GroupHomeActivity extends AppCompatActivity implements View.OnClick
     private String eventString;
     private String cleanString;
     private ImageButton calendarButton;
+    private ImageButton shoppingButton;
+    private  ImageButton cleanButton;
+    private  ImageButton contactsButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +65,9 @@ public class GroupHomeActivity extends AppCompatActivity implements View.OnClick
         cleanText = (TextView) findViewById(R.id.cleaning_text);
         moneyText =(TextView) findViewById(R.id.money_text);
         calendarButton = (ImageButton) findViewById(R.id.calendar_button);
+        shoppingButton = (ImageButton) findViewById(R.id.shoppig_button);
+        cleanButton = (ImageButton) findViewById(R.id.cleaning_button);
+        contactsButton =(ImageButton) findViewById(R.id.contacts_button);
 
         calendar = Calendar.getInstance();
         mdformat = new SimpleDateFormat("yyyy-MM-dd ");
@@ -69,6 +75,9 @@ public class GroupHomeActivity extends AppCompatActivity implements View.OnClick
         System.out.println("data" + date);
 
         calendarButton.setOnClickListener(this);
+        shoppingButton.setOnClickListener(this);
+        cleanButton.setOnClickListener(this);
+        contactsButton.setOnClickListener(this);
 
         getGroupInfo();
 
@@ -92,6 +101,15 @@ public class GroupHomeActivity extends AppCompatActivity implements View.OnClick
     public void onClick(View view) {
         if (view == calendarButton) {
             startActivity(new Intent(this, EventsActivity.class));
+        }
+        if (view == shoppingButton){
+            startActivity(new Intent(this,ShoppingListActivity.class));
+        }
+        if (view == cleanButton){
+            startActivity(new Intent(this,CleanRoundActivity.class));
+        }
+        if (view == contactsButton) {
+            startActivity(new Intent(this, ContactsActivity.class));
         }
     }
 
@@ -162,24 +180,12 @@ public class GroupHomeActivity extends AppCompatActivity implements View.OnClick
 
                             //riempimento sezione pulizie
                             if(Integer.parseInt(obj.getString("numberOfClean")) > 0) {
-                                cleanString = "I tuoi compiti : \n";
 
                                 JSONArray jsonCleanDescriptions = obj.getJSONArray("clean_descriptions");
                                 for (int i = 0; i < jsonCleanDescriptions.length(); i++) {
                                     JSONObject o = jsonCleanDescriptions.getJSONObject(i);
-                                    Date date = new Date();
-                                    SimpleDateFormat date_format = new SimpleDateFormat("yyyy-MM-dd");
-                                    try {
-                                        date = date_format.parse(o.getString("clean_date"));
-                                    } catch (ParseException e) {
-                                        e.printStackTrace();
-                                    }
-                                    String data = String.valueOf(date);
-                                    String[] splited = data.split("\\s+");
-                                    String nomeGiorno  = getDayNameInItalian(splited[0]);
-                                    String numeroGiorno = splited [2];
 
-                                    cleanString += "- " + o.getString("description") + " " + nomeGiorno + " "+ numeroGiorno + "\n";
+                                    cleanString = "Questa settimana devi: \n " + "- "+o.getString("description");
                                 }
                                 cleanText.setText(cleanString);
                             }else{
