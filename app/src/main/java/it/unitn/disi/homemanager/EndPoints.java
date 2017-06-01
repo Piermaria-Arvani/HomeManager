@@ -8,7 +8,7 @@ package it.unitn.disi.homemanager;
 public class EndPoints {
     public static final String URL_local ="http://192.168.1.28/";
     public static final String URL_heroku ="https://enigmatic-cliffs-40005.herokuapp.com/";
-    public static final String URL_BASE =URL_local;
+    public static final String URL_BASE =URL_heroku;
     public static final String URL_REGISTER_DEVICE = URL_BASE + "phpScripts/RegisterDevice.php";
     public static final String URL_REGISTER_GROUP = URL_BASE + "phpScripts/InsertGroup.php";
     public static final String URL_INSERT_EVENT = URL_BASE + "phpScripts/InsertEvent.php";

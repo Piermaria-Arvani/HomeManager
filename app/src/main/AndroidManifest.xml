@@ -22,7 +22,6 @@
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
 
-        <activity android:name=".MainActivity" />
 
         <service android:name=".MyFirebaseInstanceIDService">
             <intent-filter>
@@ -34,25 +33,28 @@
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
-
-        <activity android:name=".ActivitySendPushNotification" />
         <activity android:name=".Login">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+            android:screenOrientation="portrait"
         </activity>
         <activity
             android:name=".HomeActivity"
             android:label="@string/title_activity_home_manager"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".GroupHomeActivity"
             android:label="@string/title_activity_group_home"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".AddMemberActivity" />
-        <activity android:name=".JoinGroupActivity" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".AddMemberActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".JoinGroupActivity"
+            android:screenOrientation="portrait"/>
 
         <meta-data
             android:name="com.google.android.gms.vision.DEPENDENCIES"
@@ -61,25 +63,32 @@
         <activity
             android:name=".EventsActivity"
             android:label="@string/title_activity_events"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ShoppingListActivity"
             android:label="@string/title_activity_shopping_list"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".CleanRoundActivity"
             android:label="@string/title_activity_clean_round"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ContactsActivity"
             android:label="@string/title_activity_contacts"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".WalletActivity"
             android:label="@string/walletactivity"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".InsertNewTransferActivity" />
-        <activity android:name=".InsertExpenseActivity"/>
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".InsertNewTransferActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".InsertExpenseActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>
