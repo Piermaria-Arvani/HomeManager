@@ -40,7 +40,7 @@
         android:id="@+id/istruzioni"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/swipe_a_sinistra_per_eliminare_un_elemento"
+        android:text="@string/swipe_verso_sinistra_per_eliminare_un_elemento"
         android:gravity="center"
         android:textColor="#ffffff"
         android:background="#b3b3b3"

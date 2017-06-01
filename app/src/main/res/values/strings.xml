@@ -35,7 +35,7 @@
     <string name="chiudi">Chiudi</string>
     <string name="button_undo">Undo</string>
     <string name="aggiungi_un_elemento">Aggiungi un elemento</string>
-    <string name="swipe_a_sinistra_per_eliminare_un_elemento">Swipe a sinistra per eliminare un elemento</string>
+    <string name="swipe_verso_sinistra_per_eliminare_un_elemento">Swipe verso sinistra per eliminare un elemento</string>
     <string name="title_activity_clean_round">CleanRoundActivity</string>
     <string name="turni_di_pulizie_per_questa_settimana">Turni di pulizie per questa settimana:</string>
     <string name="done">Done</string>
@@ -46,4 +46,17 @@
     <string name="rubrica">Rubrica :</string>
     <string name="inserisci_nome">Inserisci nome</string>
     <string name="inserisci_numero">Inserisci numero</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="walletactivity">WalletActivity</string>
+    <string name="aggiungi_trasferimento">Aggiungi trasferimento</string>
+    <string name="inserisci_l_importo">Inserisci l\'importo</string>
+    <string name="seleziona_il_coinquilino_a_cui_hai_dato_dei_soldi">Seleziona il coinquilino a cui hai dato dei soldi</string>
+    <string name="modifica_data">Modifica data</string>
+    <string name="cosa_hai_comprato">Cosa hai comprato?</string>
+    <string name="euro">€</string>
+    <string name="descrizione_spesa">Descrizione spesa</string>
+    <string name="modifica">Modifica</string>
+    <string name="homemanager">HomeManager</string>
 </resources>

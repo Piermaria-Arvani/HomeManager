@@ -1,6 +1,7 @@
 package it.unitn.disi.homemanager;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -54,11 +55,6 @@ public class CleanRoundActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                System.out.println("pre cambio");
-                for(int j = 0; j< descrizioni.size();j++){
-                    System.out.println("Descrizione " + descrizioni.get(j) + " fbid "+ fb_ids.get(j));
-                }
-                System.out.println("post cambio");
                 exchangeCleaningRounds();
             }
         });
@@ -198,6 +194,10 @@ public class CleanRoundActivity extends AppCompatActivity {
             }
         };
         MyVolley.getInstance(this).addToRequestQueue(stringRequest);
+    }
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(context, GroupHomeActivity.class));
     }
 
 }

@@ -3,6 +3,7 @@ package it.unitn.disi.homemanager;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
@@ -160,6 +161,11 @@ public class ShoppingListActivity extends AppCompatActivity {
             }
 
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(context, GroupHomeActivity.class));
     }
 
 

@@ -94,7 +94,7 @@ public class SharedPrefManager {
         SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
         return  sharedPreferences.getString(TAG_FACEBOOK_NAME, null);
     }
-    public boolean saveDebitCredit (int debit_credit){
+    public boolean saveDebitCredit (float debit_credit){
         SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
 

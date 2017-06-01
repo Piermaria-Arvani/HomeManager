@@ -4,6 +4,7 @@ package it.unitn.disi.homemanager;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Toast;
@@ -43,13 +44,15 @@ public class Login extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        isLogged();
-
         context= getApplicationContext();
         callbackManager = CallbackManager.Factory.create();
         loginButton = (LoginButton) findViewById(R.id.login_button);
 
 
+        System.out.println("entro in isLogged");
+        isLogged();
+
+        System.out.println("uscito da isLogged");
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>()  {
 
             @Override
@@ -75,6 +78,8 @@ public class Login extends AppCompatActivity {
             }
 
         });
+
+
     }
 
 
@@ -83,6 +88,8 @@ public class Login extends AppCompatActivity {
         super.onActivityResult(requestCode, responseCode, data);
         callbackManager.onActivityResult(requestCode, responseCode, data);
     }
+
+
 
     public void GetFacebookNameAndLogin(){
         String facebook_token = SharedPrefManager.getInstance(context).getFacebookToken();
@@ -149,11 +156,11 @@ public class Login extends AppCompatActivity {
 
                             if(obj.getString("message").equals("User logged again")){
                                 if(obj.getString("group_id").equals("null")){
-                                    SharedPrefManager.getInstance(context).saveGroupId(Integer.parseInt( obj.getString("group_id")));
-                                    SharedPrefManager.getInstance(context).saveDebitCredit(Integer.parseInt( obj.getString("debit_credit")));
-                                    SharedPrefManager.getInstance(context).saveGroupName(obj.getString("group_name"));
                                     startActivity(new Intent(context, HomeActivity.class));
                                 }else{
+                                    SharedPrefManager.getInstance(context).saveGroupId(Integer.parseInt( obj.getString("group_id")));
+                                    SharedPrefManager.getInstance(context).saveDebitCredit(Float.parseFloat( obj.getString("debit_credit")));
+                                    SharedPrefManager.getInstance(context).saveGroupName(obj.getString("group_name"));
                                     startActivity(new Intent(context, GroupHomeActivity.class));
                                 }
                             }
@@ -163,9 +170,6 @@ public class Login extends AppCompatActivity {
                             System.out.println("eccezione JSON");
                             e.printStackTrace();
                         }
-
-
-                        finish();
                     }
                 },
                 new Response.ErrorListener() {
@@ -212,14 +216,14 @@ public class Login extends AppCompatActivity {
 
                         try {
                             JSONObject obj = new JSONObject(response);
-                            System.out.println(obj.getString("message"));
+                            System.out.println("messaggio di risposta in isLogged" + obj.getString("message"));
                             if(obj.getString("message").equals("Just Logged")){
 
                                 SharedPrefManager.getInstance(context).saveFacebookID(obj.getString("facebook_id"));
                                 SharedPrefManager.getInstance(context).saveFacebookName(obj.getString("name"));
-                                SharedPrefManager.getInstance(context).saveDebitCredit(Integer.parseInt(obj.getString("debit_credit")));
+                                SharedPrefManager.getInstance(context).saveDebitCredit(Float.parseFloat(obj.getString("debit_credit")));
                                 System.out.println("group_id" + obj.getString("group_id"));
-                                if(!(obj.getString("group_id") == "null")){
+                                if(!(obj.getString("group_id").equals("null"))){
                                     SharedPrefManager.getInstance(context).saveGroupId(Integer.parseInt( obj.getString("group_id")));
                                     SharedPrefManager.getInstance(context).saveGroupName(obj.getString("group_name"));
                                     startActivity(new Intent(context,GroupHomeActivity.class));
@@ -227,7 +231,8 @@ public class Login extends AppCompatActivity {
                                     startActivity(new Intent(context, HomeActivity.class));
                                 }
                             }
-                            finish();
+                            System.out.println("finito isLogged");
+
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -250,5 +255,12 @@ public class Login extends AppCompatActivity {
         };
 
         MyVolley.getInstance(this).addToRequestQueue(stringRequest);
+    }
+    @Override
+    public void onBackPressed() {
+        Intent homeIntent = new Intent(Intent.ACTION_MAIN);
+        homeIntent.addCategory( Intent.CATEGORY_HOME );
+        homeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(homeIntent);
     }
 }

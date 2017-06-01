@@ -31,8 +31,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/non_ci_sono_eventi_in_programma"
-        android:gravity="center"
-        android:includeFontPadding="false"
+        android:layout_marginTop="100sp"
+        android:textAlignment="center"
         android:visibility="gone"
         />
 

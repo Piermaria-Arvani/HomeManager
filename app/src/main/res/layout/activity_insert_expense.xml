@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    tools:context=".InsertExpenseActivity">
+
+
+
+    <EditText
+        android:id="@+id/dialog_element_description"
+        android:hint="@string/descrizione_spesa"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:textSize="20sp" />
+
+    <EditText
+        android:id="@+id/dialog_element_cost"
+        android:hint="@string/euro"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/dialog_element_description"
+        android:ems="5"
+        android:inputType="number"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/dialog_date_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:hint="@string/inserisci_la_data"
+        android:layout_marginTop="25sp"
+        android:layout_below="@+id/dialog_element_cost"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"/>
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginStart="@dimen/activity_horizontal_margin"
+        android:layout_toEndOf="@+id/dialog_date_text"
+        android:layout_toRightOf="@+id/dialog_date_text"
+        android:layout_below="@+id/dialog_element_cost"
+        android:onClick="setDate"
+        android:text="@string/modifica_data" />
+    <Button
+        android:id="@+id/insert"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/inserisci"
+        android:layout_below="@+id/dialog_date_text"
+        android:layout_marginTop="20sp"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:background="@color/com_facebook_button_background_color_disabled"
+        android:layout_marginBottom="@dimen/activity_vertical_margin"
+        />
+
+
+</RelativeLayout>

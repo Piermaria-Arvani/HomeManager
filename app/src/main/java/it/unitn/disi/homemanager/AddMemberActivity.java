@@ -43,4 +43,9 @@ public class AddMemberActivity extends AppCompatActivity implements View.OnClick
             imageView.setVisibility(View.VISIBLE);
         }
     }
+
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(context, GroupHomeActivity.class));
+    }
 }

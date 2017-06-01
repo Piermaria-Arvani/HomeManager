@@ -73,7 +73,13 @@
         <activity
             android:name=".ContactsActivity"
             android:label="@string/title_activity_contacts"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".WalletActivity"
+            android:label="@string/walletactivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".InsertNewTransferActivity" />
+        <activity android:name=".InsertExpenseActivity"/>
     </application>
 
 </manifest>

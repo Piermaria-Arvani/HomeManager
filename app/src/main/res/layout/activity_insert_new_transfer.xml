@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    tools:context=".InsertNewTransferActivity"
+    >
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:textSize="18sp"
+        android:text="@string/seleziona_il_coinquilino_a_cui_hai_dato_dei_soldi"
+        android:background="#ffb380"/>
+
+    <Spinner
+        android:id="@+id/spinnerUsers"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_below="@+id/textView"/>
+
+    <EditText
+        android:id="@+id/dialog_insert"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="7"
+        android:inputType="numberDecimal"
+        android:text=""
+        android:hint="@string/inserisci_l_importo"
+        android:layout_marginTop="20sp"
+        android:layout_below="@+id/spinnerUsers"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:layout_marginBottom="@dimen/activity_vertical_margin"/>
+
+
+
+    <Button
+        android:id="@+id/insert"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/inserisci"
+        android:layout_below="@+id/dialog_insert"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginStart="@dimen/activity_horizontal_margin"
+        android:background="@color/com_facebook_button_background_color_disabled"
+        android:layout_marginBottom="@dimen/activity_vertical_margin" />
+
+
+</RelativeLayout>

@@ -99,45 +99,52 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         }
 
         if (view == buttonCreate2) {
-            final String group_name= nameText.getText().toString();
-            final String facebook_id = SharedPrefManager.getInstance(this).getFacebookID();
+            final String group_name = nameText.getText().toString();
+            if (group_name.length() > 0) {
+                SharedPrefManager.getInstance(context).saveGroupName(group_name);
+
+                final String facebook_id = SharedPrefManager.getInstance(this).getFacebookID();
 
 
-            StringRequest stringRequest = new StringRequest(com.android.volley.Request.Method.POST, EndPoints.URL_REGISTER_GROUP,
-                    new Response.Listener<String>() {
-                        @Override
-                        public void onResponse(String response) {
-                            try {
-                                JSONObject obj = new JSONObject(response);
-                                System.out.println(obj.getString("message"));
+                StringRequest stringRequest = new StringRequest(com.android.volley.Request.Method.POST, EndPoints.URL_REGISTER_GROUP,
+                        new Response.Listener<String>() {
+                            @Override
+                            public void onResponse(String response) {
+                                try {
+                                    JSONObject obj = new JSONObject(response);
+                                    System.out.println(obj.getString("message"));
 
-                            } catch (JSONException e) {
-                                System.out.println("eccezione JSON");
-                                e.printStackTrace();
+                                } catch (JSONException e) {
+                                    System.out.println("eccezione JSON");
+                                    e.printStackTrace();
+                                }
+                                startActivity(new Intent(context, GroupHomeActivity.class));
+                                finish();
                             }
-                            startActivity(new Intent(context, GroupHomeActivity.class));
-                            finish();
-                        }
-                    },
-                    new Response.ErrorListener() {
-                        @Override
-                        public void onErrorResponse(VolleyError error) {
-                            progressDialog.dismiss();
-                            Toast.makeText(HomeActivity.this, error.getMessage(), Toast.LENGTH_LONG).show();
-                            System.out.println("eccezione error listener");
-                        }
-                    }) {
+                        },
+                        new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                progressDialog.dismiss();
+                                Toast.makeText(HomeActivity.this, error.getMessage(), Toast.LENGTH_LONG).show();
+                                System.out.println("eccezione error listener");
+                            }
+                        }) {
 
-                @Override
-                protected Map<String, String> getParams() throws AuthFailureError {
-                    Map<String, String> params = new HashMap<>();
-                    params.put("facebook_id", facebook_id);
-                    params.put("group_name", group_name);
+                    @Override
+                    protected Map<String, String> getParams() throws AuthFailureError {
+                        Map<String, String> params = new HashMap<>();
+                        params.put("facebook_id", facebook_id);
+                        params.put("group_name", group_name);
 
-                    return params;
-                }
-            };
-            MyVolley.getInstance(this).addToRequestQueue(stringRequest);
+                        return params;
+                    }
+                };
+                MyVolley.getInstance(this).addToRequestQueue(stringRequest);
+            }
+            else{
+                Toast.makeText(HomeActivity.this, "Inserisci il nome del gruppo", Toast.LENGTH_LONG).show();
+            }
         }
 
 

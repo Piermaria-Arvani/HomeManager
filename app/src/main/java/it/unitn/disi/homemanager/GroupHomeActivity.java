@@ -30,6 +30,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -55,6 +56,7 @@ public class GroupHomeActivity extends AppCompatActivity implements View.OnClick
     private ImageButton shoppingButton;
     private  ImageButton cleanButton;
     private  ImageButton contactsButton;
+    private ImageButton moneyButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +70,7 @@ public class GroupHomeActivity extends AppCompatActivity implements View.OnClick
         shoppingButton = (ImageButton) findViewById(R.id.shoppig_button);
         cleanButton = (ImageButton) findViewById(R.id.cleaning_button);
         contactsButton =(ImageButton) findViewById(R.id.contacts_button);
+        moneyButton = (ImageButton) findViewById(R.id.money_button);
 
         calendar = Calendar.getInstance();
         mdformat = new SimpleDateFormat("yyyy-MM-dd ");
@@ -78,13 +81,16 @@ public class GroupHomeActivity extends AppCompatActivity implements View.OnClick
         shoppingButton.setOnClickListener(this);
         cleanButton.setOnClickListener(this);
         contactsButton.setOnClickListener(this);
+        moneyButton.setOnClickListener(this);
 
         getGroupInfo();
 
-        int debit_credit = Integer.parseInt(SharedPrefManager.getInstance(context).getDebitCredit());
-        if(debit_credit == 0){
+        float temp = Float.parseFloat(SharedPrefManager.getInstance(context).getDebitCredit());
+        DecimalFormat df = new DecimalFormat("###.##");
+        String debit_credit = df.format(temp);
+        if(temp == 0){
             moneyText.setText("Non hai debiti con i tuoi coinquilini");
-        }else if (debit_credit < 0) {
+        }else if (temp < 0) {
             moneyText.setText("Sei in debito con i tuoi coinquilini di " + debit_credit + " €");
         }else{
             moneyText.setText("I tuoi coinquilini ti devono " + debit_credit + " €");
@@ -110,6 +116,9 @@ public class GroupHomeActivity extends AppCompatActivity implements View.OnClick
         }
         if (view == contactsButton) {
             startActivity(new Intent(this, ContactsActivity.class));
+        }
+        if (view == moneyButton){
+            startActivity(new Intent(this, WalletActivity.class));
         }
     }
 
@@ -260,6 +269,7 @@ public class GroupHomeActivity extends AppCompatActivity implements View.OnClick
                     public void onResponse(String response) {
                         progressDialog.dismiss();
                         LoginManager.getInstance().logOut();
+                        System.out.println(" provo a sloggarmi");
                         startActivity(new Intent(context, Login.class));
                         finish();
                     }
