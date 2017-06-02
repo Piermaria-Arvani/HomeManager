@@ -133,8 +133,6 @@ public class CleanRoundActivity extends AppCompatActivity {
                         try {
                             JSONObject obj = new JSONObject(response);
 
-                            System.out.println("passato2");
-
                             ListView view = (ListView) findViewById(R.id.listView);
                             final ArrayList<CleanRound> cleanRoundList = new ArrayList<>();
 

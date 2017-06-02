@@ -205,7 +205,6 @@ public class GroupHomeActivity extends AppCompatActivity implements View.OnClick
                             System.out.println(obj);
 
                         } catch (JSONException e) {
-                            System.out.println("eccezione JSON");
                             e.printStackTrace();
                         }
 
@@ -216,7 +215,6 @@ public class GroupHomeActivity extends AppCompatActivity implements View.OnClick
                     public void onErrorResponse(VolleyError error) {
                         progressDialog.dismiss();
                         Toast.makeText(GroupHomeActivity.this, error.getMessage(), Toast.LENGTH_LONG).show();
-                        System.out.println("eccezione error listener");
                     }
                 }) {
 
@@ -291,5 +289,13 @@ public class GroupHomeActivity extends AppCompatActivity implements View.OnClick
         };
         MyVolley.getInstance(this).addToRequestQueue(stringRequest);
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent homeIntent = new Intent(Intent.ACTION_MAIN);
+        homeIntent.addCategory( Intent.CATEGORY_HOME );
+        homeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(homeIntent);
     }
 }

@@ -115,7 +115,6 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                                     System.out.println(obj.getString("message"));
 
                                 } catch (JSONException e) {
-                                    System.out.println("eccezione JSON");
                                     e.printStackTrace();
                                 }
                                 startActivity(new Intent(context, GroupHomeActivity.class));
@@ -127,7 +126,6 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                             public void onErrorResponse(VolleyError error) {
                                 progressDialog.dismiss();
                                 Toast.makeText(HomeActivity.this, error.getMessage(), Toast.LENGTH_LONG).show();
-                                System.out.println("eccezione error listener");
                             }
                         }) {
 
@@ -207,5 +205,13 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         };
         MyVolley.getInstance(this).addToRequestQueue(stringRequest);
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent homeIntent = new Intent(Intent.ACTION_MAIN);
+        homeIntent.addCategory( Intent.CATEGORY_HOME );
+        homeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(homeIntent);
     }
 }

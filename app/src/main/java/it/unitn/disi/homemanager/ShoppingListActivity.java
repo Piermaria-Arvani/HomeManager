@@ -79,8 +79,6 @@ public class ShoppingListActivity extends AppCompatActivity {
                 dialog.setTitle("Insert Item");
 
                 // set values for custom dialog components
-
-
                 dialog.show();
                 Button insertButton = (Button) dialog.findViewById(R.id.insert);
                 Button declineButton = (Button) dialog.findViewById(R.id.annulla);
@@ -100,10 +98,7 @@ public class ShoppingListActivity extends AppCompatActivity {
                     public void onClick(View v) {
 
                         final TextView itemText = (TextView) dialog.findViewById(R.id.dialog_item);
-
                         final String item =  itemText.getText().toString();
-                        System.out.println("nuovo elemento : " + item);
-
 
                         if (item.length()==0) {
                             Toast.makeText(context, "Inserisci un nuovo elemento", Toast.LENGTH_SHORT).show();
@@ -150,16 +145,10 @@ public class ShoppingListActivity extends AppCompatActivity {
                                 }
                             };
                             MyVolley.getInstance(context).addToRequestQueue(stringRequest);
-
                         }
-
-
                     }
                 });
-
-
             }
-
         });
     }
 
@@ -178,15 +167,12 @@ public class ShoppingListActivity extends AppCompatActivity {
                         try {
                             JSONObject obj = new JSONObject(response);
 
-
-
                             if(Integer.parseInt(obj.getString("numberOfItems")) > 0) {
 
                                 JSONArray jsonItems = obj.getJSONArray("items");
                                 for (int i = 0; i < jsonItems.length(); i++){
                                     JSONObject d = jsonItems.getJSONObject(i);
                                     elements.add(d.getString("item"));
-                                    System.out.println(elements.get((elements.size()-1)));
                                 }
                             }else{
                                 TextView text_no_item= (TextView) findViewById(R.id.text_lista_vuota);
@@ -267,7 +253,6 @@ public class ShoppingListActivity extends AppCompatActivity {
                 int swipedPosition = viewHolder.getAdapterPosition();
                 TestAdapter adapter = (TestAdapter)mRecyclerView.getAdapter();
                 removeItem(swipedPosition);
-                Toast.makeText(ShoppingListActivity.this, "posizione :" + swipedPosition, Toast.LENGTH_LONG).show();
                 adapter.remove(swipedPosition);
             }
 
@@ -280,7 +265,6 @@ public class ShoppingListActivity extends AppCompatActivity {
                             public void onResponse(String response) {
                                 try {
                                     JSONObject obj = new JSONObject(response);
-                                    System.out.println(obj.getString("message"));
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
