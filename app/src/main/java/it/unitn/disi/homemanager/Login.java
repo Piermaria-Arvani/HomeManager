@@ -48,23 +48,15 @@ public class Login extends AppCompatActivity {
         callbackManager = CallbackManager.Factory.create();
         loginButton = (LoginButton) findViewById(R.id.login_button);
 
-
-        System.out.println("entro in isLogged");
         isLogged();
 
-        System.out.println("uscito da isLogged");
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>()  {
 
             @Override
             public void onSuccess(LoginResult loginResult) {
-
-                System.out.println("Logged with user ID"+ loginResult.getAccessToken().getUserId()+"token "+loginResult.getAccessToken().getToken());
-
                 SharedPrefManager.getInstance(context).saveFacebookID(loginResult.getAccessToken().getUserId());
                 SharedPrefManager.getInstance(context).saveFacebookToken(loginResult.getAccessToken().getToken());
-                System.out.println("passato1");
                 GetFacebookNameAndLogin();
-
             }
 
             @Override
@@ -78,10 +70,7 @@ public class Login extends AppCompatActivity {
             }
 
         });
-
-
     }
-
 
     @Override
     protected void onActivityResult(int requestCode, int responseCode, Intent data) {
@@ -100,8 +89,7 @@ public class Login extends AppCompatActivity {
 
                         try {
                             complete_name = new JSONObject(response).getString("name");
-                            System.out.println("name :" + complete_name);
-                            //salvo nel database
+                            //store in db
                             sendToServerAndLogin();
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -167,7 +155,6 @@ public class Login extends AppCompatActivity {
 
 
                         } catch (JSONException e) {
-                            System.out.println("eccezione JSON");
                             e.printStackTrace();
                         }
                     }
@@ -177,7 +164,6 @@ public class Login extends AppCompatActivity {
                     public void onErrorResponse(VolleyError error) {
                         progressDialog.dismiss();
                         Toast.makeText(Login.this, error.getMessage(), Toast.LENGTH_LONG).show();
-                        System.out.println("eccezione error listener");
                     }
                 }) {
 
@@ -202,7 +188,6 @@ public class Login extends AppCompatActivity {
         SharedPrefManager spm= SharedPrefManager.getInstance(this);
         SharedPrefManager.retrieveDeviceToken();
         final String token = spm.getDeviceToken();
-        System.out.println("token:" + token);
         if (token == null) {
             progressDialog.dismiss();
             Toast.makeText(this, "Token not generated", Toast.LENGTH_LONG).show();
@@ -216,13 +201,11 @@ public class Login extends AppCompatActivity {
 
                         try {
                             JSONObject obj = new JSONObject(response);
-                            System.out.println("messaggio di risposta in isLogged" + obj.getString("message"));
                             if(obj.getString("message").equals("Just Logged")){
 
                                 SharedPrefManager.getInstance(context).saveFacebookID(obj.getString("facebook_id"));
                                 SharedPrefManager.getInstance(context).saveFacebookName(obj.getString("name"));
                                 SharedPrefManager.getInstance(context).saveDebitCredit(Float.parseFloat(obj.getString("debit_credit")));
-                                System.out.println("group_id" + obj.getString("group_id"));
                                 if(!(obj.getString("group_id").equals("null"))){
                                     SharedPrefManager.getInstance(context).saveGroupId(Integer.parseInt( obj.getString("group_id")));
                                     SharedPrefManager.getInstance(context).saveGroupName(obj.getString("group_name"));
@@ -231,7 +214,6 @@ public class Login extends AppCompatActivity {
                                     startActivity(new Intent(context, HomeActivity.class));
                                 }
                             }
-                            System.out.println("finito isLogged");
 
                         } catch (JSONException e) {
                             e.printStackTrace();

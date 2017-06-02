@@ -56,12 +56,10 @@ public class JoinGroupActivity extends AppCompatActivity implements View.OnClick
             //if qrcode has nothing in it
             if (result.getContents() == null) {
                 Toast.makeText(this, "Result Not Found", Toast.LENGTH_LONG).show();
-                System.out.println("passato da qui 3");
             } else {
                 //if qr contains data
                 final String group_id =  result.getContents();
                 final String facebook_id = SharedPrefManager.getInstance(context).getFacebookID();
-                System.out.println("group_id:" + group_id);
                 SharedPrefManager.getInstance(context).saveGroupId(Integer.parseInt(group_id));
                 StringRequest stringRequest = new StringRequest(com.android.volley.Request.Method.POST, EndPoints.URL_JOIN_GROUP,
                         new Response.Listener<String>() {
@@ -69,10 +67,8 @@ public class JoinGroupActivity extends AppCompatActivity implements View.OnClick
                             public void onResponse(String response) {
                                 try {
                                     JSONObject obj = new JSONObject(response);
-                                    System.out.println(obj.getString("message"));
 
                                 } catch (JSONException e) {
-                                    System.out.println("eccezione JSON");
                                     e.printStackTrace();
                                 }
                                 startActivity(new Intent(context, GroupHomeActivity.class));
@@ -84,7 +80,6 @@ public class JoinGroupActivity extends AppCompatActivity implements View.OnClick
                             public void onErrorResponse(VolleyError error) {
                                 progressDialog.dismiss();
                                 Toast.makeText(JoinGroupActivity.this, error.getMessage(), Toast.LENGTH_LONG).show();
-                                System.out.println("eccezione error listener");
                             }
                         }) {
 

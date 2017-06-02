@@ -16,7 +16,6 @@
             android:layout_marginTop="@dimen/activity_vertical_margin"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textSize="17sp"
-            android:text="Piermaria"
             android:textColor="#000000"/>
         <TextView
             android:id="@+id/date"
@@ -24,10 +23,10 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/activity_horizontal_margin"
             android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:layout_marginTop="2sp"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textSize="14sp"
             android:textStyle="italic"
-            android:text="29 maggio"
             android:textColor="#4d4d4d"/>
 
     </LinearLayout>
@@ -39,16 +38,16 @@
         android:layout_marginRight="@dimen/activity_horizontal_margin"
         android:layout_marginTop="@dimen/activity_vertical_margin"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:ems="9"
+        android:ems="7"
         android:textSize="18sp"
         android:textColor="#b3b3b3"/>
 
     <TextView
         android:id="@+id/money"
         android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:layout_marginEnd="@dimen/activity_horizontal_margin"
         android:layout_marginTop="@dimen/activity_vertical_margin"
-        android:text="10€"
-        android:ems="2"
+        android:ems="3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="#b3b3b3"
