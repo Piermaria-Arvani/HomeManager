@@ -7,7 +7,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -56,7 +55,10 @@ public class JoinGroupActivity extends AppCompatActivity implements View.OnClick
             //if qrcode has nothing in it
             if (result.getContents() == null) {
                 Toast.makeText(this, "Result Not Found", Toast.LENGTH_LONG).show();
-            } else {
+            }else if(result.getContents().contains("[0-9]+")){
+                progressDialog = new ProgressDialog(this);
+                progressDialog.setMessage("Loading...");
+                progressDialog.show();
                 //if qr contains data
                 final String group_id =  result.getContents();
                 final String facebook_id = SharedPrefManager.getInstance(context).getFacebookID();
@@ -71,6 +73,7 @@ public class JoinGroupActivity extends AppCompatActivity implements View.OnClick
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
+                                progressDialog.dismiss();
                                 startActivity(new Intent(context, GroupHomeActivity.class));
                                 finish();
                             }
@@ -93,6 +96,8 @@ public class JoinGroupActivity extends AppCompatActivity implements View.OnClick
                     }
                 };
                 MyVolley.getInstance(this).addToRequestQueue(stringRequest);
+            }else{
+                Toast.makeText(this, "Please use a correct QrCode", Toast.LENGTH_LONG).show();
             }
         } else {
             super.onActivityResult(requestCode, resultCode, data);

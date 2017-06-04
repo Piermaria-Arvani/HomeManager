@@ -33,14 +33,14 @@
         android:text="@string/non_ci_sono_elementi_nella_vostra_lista"
         android:gravity="center"
         android:includeFontPadding="false"
-        android:visibility="gone"
-        />
+        android:visibility="gone" />
 
     <TextView
         android:id="@+id/istruzioni"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/swipe_verso_sinistra_per_eliminare_un_elemento"
+        android:textSize="14sp"
         android:gravity="center"
         android:textColor="#ffffff"
         android:background="#b3b3b3"

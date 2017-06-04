@@ -49,6 +49,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="100dp"
+                    android:layout_marginStart="100dp"
                     android:layout_marginTop="@dimen/vertical_margin_for_text"
                     android:textColor="#000000"
                     android:textSize="20sp"

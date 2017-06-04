@@ -63,4 +63,5 @@
     <string name="phone">Phone</string>
     <string name="seleziona_un_orario">Seleziona un\'orario :</string>
     <string name="inserisci_una_nuova_spesa">Inserisci una nuova spesa</string>
+    <string name="importo">Importo</string>
 </resources>

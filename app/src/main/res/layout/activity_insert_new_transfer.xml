@@ -16,11 +16,7 @@
 
     <Spinner
         android:id="@+id/spinnerUsers"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/activity_vertical_margin"
-        android:layout_marginLeft="@dimen/activity_horizontal_margin"
-        android:layout_marginStart="@dimen/activity_horizontal_margin"
+        style="@style/spinner_style"
         android:layout_below="@+id/textView"/>
 
     <EditText
@@ -29,8 +25,7 @@
         android:layout_height="wrap_content"
         android:ems="7"
         android:inputType="numberDecimal"
-        android:text=""
-        android:hint="@string/inserisci_l_importo"
+        android:hint="@string/importo"
         android:layout_marginTop="20sp"
         android:layout_below="@+id/spinnerUsers"
         android:layout_marginLeft="@dimen/activity_horizontal_margin"
@@ -45,6 +40,7 @@
         android:layout_below="@+id/dialog_insert"
         android:layout_marginLeft="@dimen/activity_horizontal_margin"
         android:layout_marginStart="@dimen/activity_horizontal_margin"
+        android:layout_marginTop="20sp"
         android:background="#80ff80"
         android:layout_marginBottom="@dimen/activity_vertical_margin" />
 
