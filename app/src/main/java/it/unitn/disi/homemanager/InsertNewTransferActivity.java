@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.app.WallpaperInfo;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -12,6 +13,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -64,40 +66,44 @@ public class InsertNewTransferActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 getIndex();
-                System.out.println("index" + index + "nome " + users.get(index) + "facebook_id " + fb_ids.get(index));
                 final String hisfacebook_id = fb_ids.get(index);
                 final String money = moneyText.getText().toString();
-                StringRequest stringRequest = new StringRequest(Request.Method.POST, EndPoints.URL_UPDATE_DEBITS,
-                        new Response.Listener<String>() {
-                            @Override
-                            public void onResponse(String response) {
-                                progressDialog.dismiss();
-                                try {
-                                    JSONObject obj = new JSONObject(response);
-                                    startActivity(new Intent(context, WalletActivity.class));
+                if (money.length()== 0){
+                    Toast.makeText(context, "Completa il campo importo", Toast.LENGTH_LONG).show();
+                }
+                else {
+                    StringRequest stringRequest = new StringRequest(Request.Method.POST, EndPoints.URL_UPDATE_DEBITS,
+                            new Response.Listener<String>() {
+                                @Override
+                                public void onResponse(String response) {
+                                    progressDialog.dismiss();
+                                    try {
+                                        JSONObject obj = new JSONObject(response);
+                                        startActivity(new Intent(context, WalletActivity.class));
 
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
                                 }
-                            }
-                        },
-                        new Response.ErrorListener() {
-                            @Override
-                            public void onErrorResponse(VolleyError error) {
+                            },
+                            new Response.ErrorListener() {
+                                @Override
+                                public void onErrorResponse(VolleyError error) {
 
-                            }
-                        }) {
-                    @Override
-                    protected Map<String, String> getParams() throws AuthFailureError {
-                        Map<String, String> params = new HashMap<>();
-                        params.put("myfacebook_id", myFacebookId);
-                        params.put("hisfacebook_id", hisfacebook_id);
-                        params.put("money", money);
-                        return params;
-                    }
+                                }
+                            }) {
+                        @Override
+                        protected Map<String, String> getParams() throws AuthFailureError {
+                            Map<String, String> params = new HashMap<>();
+                            params.put("myfacebook_id", myFacebookId);
+                            params.put("hisfacebook_id", hisfacebook_id);
+                            params.put("money", money);
+                            return params;
+                        }
 
-                };
-                MyVolley.getInstance(context).addToRequestQueue(stringRequest);
+                    };
+                    MyVolley.getInstance(context).addToRequestQueue(stringRequest);
+                }
             }
 
         });
@@ -146,19 +152,21 @@ public class InsertNewTransferActivity extends AppCompatActivity {
 
                                 for (int i = 0; i < jsonUsers.length(); i++) {
                                     JSONObject d = jsonUsers.getJSONObject(i);
-                                    System.out.println(d.getString("name"));
                                     if(!d.getString("facebook_id").equals(myFacebookId)){
                                         users.add(d.getString("name"));
                                         fb_ids.add(d.getString("facebook_id"));
-                                        System.out.println("inseriti");
                                     }
                                 }
 
                                 ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
                                         InsertNewTransferActivity.this,
-                                        android.R.layout.simple_spinner_dropdown_item,
-                                        users);
+                                        android.R.layout.simple_spinner_dropdown_item, users);
 
+                                if(fb_ids.size()==0){
+                                    Toast.makeText(context, "Non puoi fare trasferimenti poichè nel tuo gruppo non si sono altre persone", Toast.LENGTH_LONG).show();
+                                    buttonInsert.setEnabled(false);
+                                    buttonInsert.setBackgroundColor(Color.parseColor("#b3b3b3"));
+                                }
                                 spinner.setAdapter(arrayAdapter);
                             }
                         } catch (JSONException e) {

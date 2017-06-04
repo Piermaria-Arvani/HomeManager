@@ -3,8 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    tools:context=".InsertNewTransferActivity"
-    >
+    tools:context=".InsertNewTransferActivity">
 
     <TextView
         android:id="@+id/textView"
@@ -21,6 +20,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/activity_vertical_margin"
         android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginStart="@dimen/activity_horizontal_margin"
         android:layout_below="@+id/textView"/>
 
     <EditText
@@ -37,8 +37,6 @@
         android:layout_marginRight="@dimen/activity_horizontal_margin"
         android:layout_marginBottom="@dimen/activity_vertical_margin"/>
 
-
-
     <Button
         android:id="@+id/insert"
         android:layout_width="wrap_content"
@@ -47,8 +45,7 @@
         android:layout_below="@+id/dialog_insert"
         android:layout_marginLeft="@dimen/activity_horizontal_margin"
         android:layout_marginStart="@dimen/activity_horizontal_margin"
-        android:background="@color/com_facebook_button_background_color_disabled"
+        android:background="#80ff80"
         android:layout_marginBottom="@dimen/activity_vertical_margin" />
-
 
 </RelativeLayout>

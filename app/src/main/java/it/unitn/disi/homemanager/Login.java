@@ -4,7 +4,6 @@ package it.unitn.disi.homemanager;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Toast;
@@ -86,7 +85,6 @@ public class Login extends AppCompatActivity {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-
                         try {
                             complete_name = new JSONObject(response).getString("name");
                             //store in db
@@ -94,7 +92,6 @@ public class Login extends AppCompatActivity {
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-
                     }
                 },
                 new Response.ErrorListener() {
@@ -185,9 +182,9 @@ public class Login extends AppCompatActivity {
         progressDialog.setMessage("Starting...");
         progressDialog.show();
 
-        SharedPrefManager spm= SharedPrefManager.getInstance(this);
+        SharedPrefManager prefManager = SharedPrefManager.getInstance(context);
         SharedPrefManager.retrieveDeviceToken();
-        final String token = spm.getDeviceToken();
+        final String token = SharedPrefManager.getInstance(context).getDeviceToken();
         if (token == null) {
             progressDialog.dismiss();
             Toast.makeText(this, "Token not generated", Toast.LENGTH_LONG).show();
@@ -224,7 +221,7 @@ public class Login extends AppCompatActivity {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         progressDialog.dismiss();
-                        Toast.makeText(Login.this, error.getMessage(), Toast.LENGTH_LONG).show();
+                        System.out.print(error.getMessage());
                     }
                 }) {
 

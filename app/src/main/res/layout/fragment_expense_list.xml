@@ -14,8 +14,9 @@
     <Button
         android:id="@+id/buttonInsert"
         android:layout_below="@+id/listViewExpenses"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Inserisci una nuova spesa"/>
+        android:text="@string/inserisci_una_nuova_spesa"/>
 
 </RelativeLayout>

@@ -3,9 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    tools:context=".ContactsActivity"
-    >
-
+    tools:context=".ContactsActivity">
 
 
     <EditText
@@ -42,6 +40,7 @@
         android:layout_height="wrap_content"
         android:text="@string/chiudi"
         android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginStart="@dimen/activity_horizontal_margin"
         android:layout_below="@+id/dialog_insert_number"
         android:background="@color/zxing_viewfinder_laser"
         android:layout_marginBottom="@dimen/activity_vertical_margin"
@@ -55,7 +54,7 @@
         android:layout_toEndOf="@id/annulla"
         android:layout_toRightOf="@id/annulla"
         android:layout_marginLeft="@dimen/activity_horizontal_margin"
-        android:background="@color/com_facebook_button_background_color_disabled"
+        android:background="#80ff80"
         android:layout_marginBottom="@dimen/activity_vertical_margin"
         />
 

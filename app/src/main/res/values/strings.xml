@@ -59,4 +59,8 @@
     <string name="descrizione_spesa">Descrizione spesa</string>
     <string name="modifica">Modifica</string>
     <string name="homemanager">HomeManager</string>
+    <string name="qrcode">QrCode</string>
+    <string name="phone">Phone</string>
+    <string name="seleziona_un_orario">Seleziona un\'orario :</string>
+    <string name="inserisci_una_nuova_spesa">Inserisci una nuova spesa</string>
 </resources>

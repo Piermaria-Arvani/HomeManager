@@ -9,25 +9,17 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context=".Login">
-    <LinearLayout
-        android:layout_width="wrap_content"
+    <TextView
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true">
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:contentDescription="@string/homemanager"
-            android:layout_marginTop="130sp"
-            android:src="@mipmap/icon"/>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/homemanager"
-            android:textAlignment="center"
-            android:layout_marginTop="130sp"
-            android:textSize="35sp"
-            android:textStyle="bold"/>
-    </LinearLayout>
+        android:text="@string/homemanager"
+        android:textAlignment="center"
+        android:layout_marginTop="130sp"
+        android:textSize="35sp"
+        android:textStyle="bold"
+        android:layout_centerHorizontal="true"
+        android:drawableLeft="@mipmap/icon"
+        android:drawableStart="@mipmap/icon"/>
     <com.facebook.login.widget.LoginButton
         android:id="@+id/login_button"
         android:layout_width="wrap_content"
