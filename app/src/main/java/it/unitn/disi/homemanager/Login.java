@@ -36,6 +36,7 @@ public class Login extends AppCompatActivity {
     String surname;
     private ProgressDialog progressDialog;
     String[] splited;
+    private int counter_back_pressed;
 
 
     @Override
@@ -43,6 +44,7 @@ public class Login extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        counter_back_pressed = 0;
         context= getApplicationContext();
         callbackManager = CallbackManager.Factory.create();
         loginButton = (LoginButton) findViewById(R.id.login_button);
@@ -149,7 +151,6 @@ public class Login extends AppCompatActivity {
                                     startActivity(new Intent(context, HomeActivity.class));
                                 }else{
                                     SharedPrefManager.getInstance(context).saveGroupId(Integer.parseInt( obj.getString("group_id")));
-                                    SharedPrefManager.getInstance(context).saveDebitCredit(Float.parseFloat( obj.getString("debit_credit")));
                                     SharedPrefManager.getInstance(context).saveGroupName(obj.getString("group_name"));
                                     startActivity(new Intent(context, GroupHomeActivity.class));
                                 }
@@ -191,7 +192,8 @@ public class Login extends AppCompatActivity {
 
         SharedPrefManager prefManager = SharedPrefManager.getInstance(context);
         SharedPrefManager.retrieveDeviceToken();
-        final String token = SharedPrefManager.getInstance(context).getDeviceToken();
+        final String token = prefManager.getDeviceToken();
+
         if (token == null) {
             progressDialog.dismiss();
             Toast.makeText(this, "Token not generated", Toast.LENGTH_LONG).show();
@@ -209,7 +211,6 @@ public class Login extends AppCompatActivity {
 
                                 SharedPrefManager.getInstance(context).saveFacebookID(obj.getString("facebook_id"));
                                 SharedPrefManager.getInstance(context).saveFacebookName(obj.getString("name"));
-                                SharedPrefManager.getInstance(context).saveDebitCredit(Float.parseFloat(obj.getString("debit_credit")));
                                 if(!(obj.getString("group_id").equals("null"))){
                                     SharedPrefManager.getInstance(context).saveGroupId(Integer.parseInt( obj.getString("group_id")));
                                     SharedPrefManager.getInstance(context).saveGroupName(obj.getString("group_name"));
@@ -244,9 +245,15 @@ public class Login extends AppCompatActivity {
     }
     @Override
     public void onBackPressed() {
-        Intent homeIntent = new Intent(Intent.ACTION_MAIN);
-        homeIntent.addCategory( Intent.CATEGORY_HOME );
-        homeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(homeIntent);
+
+        if(counter_back_pressed == 0){
+            Toast.makeText(this, "Press back again to exit", Toast.LENGTH_LONG).show();
+            counter_back_pressed++;
+        }else {
+            Intent homeIntent = new Intent(Intent.ACTION_MAIN);
+            homeIntent.addCategory(Intent.CATEGORY_HOME);
+            homeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(homeIntent);
+        }
     }
 }

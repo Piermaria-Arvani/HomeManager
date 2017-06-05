@@ -12,15 +12,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
-        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:layout_marginStart="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginEnd="10dp"
         android:layout_marginTop="@dimen/activity_vertical_margin"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:ems="5"
         android:textSize="14sp"
-        android:textColor="#b3b3b3"/>
+        android:textColor="#000000"/>
 
     <EditText
         android:id="@+id/clean_description"
+        android:hint="@string/inserisci_un_compito"
         android:layout_marginRight="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginTop="@dimen/activity_vertical_margin"

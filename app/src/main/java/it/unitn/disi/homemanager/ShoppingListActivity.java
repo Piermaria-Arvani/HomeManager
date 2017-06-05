@@ -161,6 +161,7 @@ public class ShoppingListActivity extends AppCompatActivity {
 
 
     public void getShoppingList(){
+        final TextView text_no_item= (TextView) findViewById(R.id.text_lista_vuota);
 
         StringRequest stringRequest = new StringRequest(com.android.volley.Request.Method.POST, EndPoints.URL_GROUP_SHOPPINGLIST,
                 new Response.Listener<String>() {
@@ -176,8 +177,9 @@ public class ShoppingListActivity extends AppCompatActivity {
                                     JSONObject d = jsonItems.getJSONObject(i);
                                     elements.add(d.getString("item"));
                                 }
+                                text_no_item.setVisibility(View.VISIBLE);
                             }else{
-                                TextView text_no_item= (TextView) findViewById(R.id.text_lista_vuota);
+
                                 text_no_item.setVisibility(View.VISIBLE);
                             }
 

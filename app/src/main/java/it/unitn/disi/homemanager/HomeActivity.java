@@ -40,6 +40,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     private Button buttonCreate2;
     private Button buttonAnnulla;
     private Toolbar myToolbar;
+    private int counter_back_pressed;
 
 
     @Override
@@ -50,6 +51,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         context= getApplicationContext();
         name = SharedPrefManager.getInstance(context).getFacebookName();
 
+        counter_back_pressed = 0;
         //getting views from xml
         myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         buttonCreate = (Button) findViewById(R.id.crea_gruppo);
@@ -209,9 +211,14 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onBackPressed() {
-        Intent homeIntent = new Intent(Intent.ACTION_MAIN);
-        homeIntent.addCategory( Intent.CATEGORY_HOME );
-        homeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(homeIntent);
+        if(counter_back_pressed == 0){
+            Toast.makeText(this, "Press back again to exit", Toast.LENGTH_LONG).show();
+            counter_back_pressed++;
+        }else {
+            Intent homeIntent = new Intent(Intent.ACTION_MAIN);
+            homeIntent.addCategory(Intent.CATEGORY_HOME);
+            homeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(homeIntent);
+        }
     }
 }

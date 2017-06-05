@@ -57,12 +57,14 @@ public class GroupHomeActivity extends AppCompatActivity implements View.OnClick
     private  ImageButton cleanButton;
     private  ImageButton contactsButton;
     private ImageButton moneyButton;
+    private int counter_back_pressed;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_group_home);
 
+        counter_back_pressed = 0;
         calendarText = (TextView) findViewById(R.id.calendar_text);
         cleanText = (TextView) findViewById(R.id.cleaning_text);
         moneyText =(TextView) findViewById(R.id.money_text);
@@ -84,18 +86,6 @@ public class GroupHomeActivity extends AppCompatActivity implements View.OnClick
         moneyButton.setOnClickListener(this);
 
         getGroupInfo();
-
-        float temp = Float.parseFloat(SharedPrefManager.getInstance(context).getDebitCredit());
-        DecimalFormat df = new DecimalFormat("###.##");
-        String debit_credit = df.format(temp);
-        if(temp == 0){
-            moneyText.setText("Non hai debiti con i tuoi coinquilini");
-        }else if (temp < 0) {
-            moneyText.setText("Sei in debito con i tuoi coinquilini di " + debit_credit + " €");
-        }else{
-            moneyText.setText("I tuoi coinquilini ti devono " + debit_credit + " €");
-        }
-
         context= getApplicationContext();
         myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         myToolbar.setTitle(SharedPrefManager.getInstance(context).getGroupName());
@@ -187,14 +177,31 @@ public class GroupHomeActivity extends AppCompatActivity implements View.OnClick
                                 calendarText.setText(eventString);
                             }
 
+                            //debiti
+                            JSONArray jsonDebits = obj.getJSONArray("debits");
+                            JSONObject s = jsonDebits.getJSONObject(0);
+                            float temp = Float.parseFloat(s.getString("debit_credit"));
+                            DecimalFormat df = new DecimalFormat("###.##");
+                            String debit_credit = df.format(temp);
+                            if(temp == 0){
+                                moneyText.setText("Non hai debiti con i tuoi coinquilini");
+                            }else if (temp < 0) {
+                                moneyText.setText("Sei in debito con i tuoi coinquilini di " + debit_credit.substring(1) + " €");
+                            }else{
+                                moneyText.setText("I tuoi coinquilini ti devono " + debit_credit + " €");
+                            }
+
+
                             //riempimento sezione pulizie
                             if(Integer.parseInt(obj.getString("numberOfClean")) > 0) {
 
                                 JSONArray jsonCleanDescriptions = obj.getJSONArray("clean_descriptions");
                                 for (int i = 0; i < jsonCleanDescriptions.length(); i++) {
                                     JSONObject o = jsonCleanDescriptions.getJSONObject(i);
-
-                                    cleanString = "Questa settimana devi: \n " + "- "+o.getString("description");
+                                    if(o.getString("description").length()==0)
+                                        cleanString = "Non hai pulizie da fare in programma";
+                                    else
+                                        cleanString = "Questa settimana devi: \n " + "- "+o.getString("description");
                                 }
                                 cleanText.setText(cleanString);
                             }else{
@@ -293,9 +300,14 @@ public class GroupHomeActivity extends AppCompatActivity implements View.OnClick
 
     @Override
     public void onBackPressed() {
-        Intent homeIntent = new Intent(Intent.ACTION_MAIN);
-        homeIntent.addCategory( Intent.CATEGORY_HOME );
-        homeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(homeIntent);
+        if(counter_back_pressed == 0){
+            Toast.makeText(this, "Press back again to exit", Toast.LENGTH_LONG).show();
+            counter_back_pressed++;
+        }else {
+            Intent homeIntent = new Intent(Intent.ACTION_MAIN);
+            homeIntent.addCategory(Intent.CATEGORY_HOME);
+            homeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(homeIntent);
+        }
     }
 }

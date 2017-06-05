@@ -17,7 +17,6 @@ public class SharedPrefManager {
     private static final String TAG_FACEBOOK_ID = "tagfacebookid";
     private static final String TAG_FIREBASE_TOKEN = "tagfirebasetoken";
     private static final String TAG_FACEBOOK_NAME = "tagfacebookname";
-    private static final String TAG_DEBIT_CREDIT ="tagdebitcredit" ;
     private static final String TAG_GROUP_ID ="taggroupid" ;
     private static final String TAG_GROUP_NAME = "taggroupname";
 
@@ -38,7 +37,7 @@ public class SharedPrefManager {
     public static void retrieveDeviceToken(){
         SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        String token= FirebaseInstanceId.getInstance().getToken();
+        String token = FirebaseInstanceId.getInstance().getToken();
         editor.putString(TAG_FIREBASE_TOKEN, token);
         editor.apply();
     }
@@ -93,18 +92,6 @@ public class SharedPrefManager {
     public String getFacebookName(){
         SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
         return  sharedPreferences.getString(TAG_FACEBOOK_NAME, null);
-    }
-    public boolean saveDebitCredit (float debit_credit){
-        SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-
-        editor.putString(TAG_DEBIT_CREDIT, String.valueOf(debit_credit));
-        editor.apply();
-        return true;
-    }
-    public String getDebitCredit(){
-        SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
-        return  sharedPreferences.getString(TAG_DEBIT_CREDIT, null);
     }
     public boolean saveGroupId (int group_id){
         SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
