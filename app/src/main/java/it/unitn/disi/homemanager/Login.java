@@ -47,6 +47,9 @@ public class Login extends AppCompatActivity {
         callbackManager = CallbackManager.Factory.create();
         loginButton = (LoginButton) findViewById(R.id.login_button);
 
+        SharedPrefManager prefManager = SharedPrefManager.getInstance(context);
+        SharedPrefManager.retrieveDeviceToken();
+
         isLogged();
 
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>()  {
@@ -127,7 +130,10 @@ public class Login extends AppCompatActivity {
 
         splited = complete_name.split("\\s+");
         name  = splited[0];
-        surname = splited [1];
+        surname = "";
+        for(int j = 1; j < splited.length;j++){
+            surname += " " + splited [j];
+        }
         SharedPrefManager.getInstance(context).saveFacebookName(name);
 
         System.out.println("firebase"+ firebase_token + "facebook"+ facebook_id );
@@ -138,7 +144,6 @@ public class Login extends AppCompatActivity {
                         progressDialog.dismiss();
                         try {
                             JSONObject obj = new JSONObject(response);
-
                             if(obj.getString("message").equals("User logged again")){
                                 if(obj.getString("group_id").equals("null")){
                                     startActivity(new Intent(context, HomeActivity.class));
@@ -148,6 +153,8 @@ public class Login extends AppCompatActivity {
                                     SharedPrefManager.getInstance(context).saveGroupName(obj.getString("group_name"));
                                     startActivity(new Intent(context, GroupHomeActivity.class));
                                 }
+                            }else{
+                                startActivity(new Intent(context, HomeActivity.class));
                             }
 
 

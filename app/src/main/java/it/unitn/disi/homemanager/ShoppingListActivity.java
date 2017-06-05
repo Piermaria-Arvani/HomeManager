@@ -80,7 +80,7 @@ public class ShoppingListActivity extends AppCompatActivity {
 
                 // set values for custom dialog components
                 dialog.show();
-                Button insertButton = (Button) dialog.findViewById(R.id.insert);
+                final Button insertButton = (Button) dialog.findViewById(R.id.insert);
                 Button declineButton = (Button) dialog.findViewById(R.id.annulla);
 
 
@@ -99,6 +99,7 @@ public class ShoppingListActivity extends AppCompatActivity {
 
                         final TextView itemText = (TextView) dialog.findViewById(R.id.dialog_item);
                         final String item =  itemText.getText().toString();
+                        insertButton.setEnabled(false);
 
                         if (item.length()==0) {
                             Toast.makeText(context, "Inserisci un nuovo elemento", Toast.LENGTH_SHORT).show();
@@ -114,6 +115,7 @@ public class ShoppingListActivity extends AppCompatActivity {
                                                 if(obj.getString("message").equals("Item insert")){
                                                     Toast.makeText(context, "Inserito con successo", Toast.LENGTH_SHORT).show();
                                                     itemText.setText("");
+                                                    insertButton.setEnabled(true);
                                                     elements.clear();
                                                     TestAdapter adapter = (TestAdapter)mRecyclerView.getAdapter();
                                                     adapter.reset();

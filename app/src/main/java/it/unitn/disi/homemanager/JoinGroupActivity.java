@@ -69,13 +69,17 @@ public class JoinGroupActivity extends AppCompatActivity implements View.OnClick
                             public void onResponse(String response) {
                                 try {
                                     JSONObject obj = new JSONObject(response);
+                                    progressDialog.dismiss();
+                                    if(obj.getString("messagge").equals("Group does not exists")){
+                                        Toast.makeText(context, "Per favore usa QrCode corretto", Toast.LENGTH_LONG).show();
+                                    }else{
+                                        Toast.makeText(context, "Ora fai parte del gruppo!", Toast.LENGTH_LONG).show();
+                                        startActivity(new Intent(context, GroupHomeActivity.class));
+                                    }
 
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
-                                progressDialog.dismiss();
-                                startActivity(new Intent(context, GroupHomeActivity.class));
-                                finish();
                             }
                         },
                         new Response.ErrorListener() {
@@ -97,7 +101,7 @@ public class JoinGroupActivity extends AppCompatActivity implements View.OnClick
                 };
                 MyVolley.getInstance(this).addToRequestQueue(stringRequest);
             }else{
-                Toast.makeText(this, "Please use a correct QrCode", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "Per favore usa QrCode corretto", Toast.LENGTH_LONG).show();
             }
         } else {
             super.onActivityResult(requestCode, resultCode, data);
