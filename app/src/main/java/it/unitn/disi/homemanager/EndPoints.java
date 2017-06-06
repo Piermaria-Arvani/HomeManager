@@ -8,7 +8,7 @@ package it.unitn.disi.homemanager;
 public class EndPoints {
     public static final String URL_local ="http://192.168.43.69/";
     public static final String URL_heroku ="https://enigmatic-cliffs-40005.herokuapp.com/";
-    public static final String URL_BASE =URL_local;
+    public static final String URL_BASE =URL_heroku;
     public static final String URL_REGISTER_DEVICE = URL_BASE + "phpScripts/RegisterDevice.php";
     public static final String URL_REGISTER_GROUP = URL_BASE + "phpScripts/InsertGroup.php";
     public static final String URL_STORE_TOKEN = URL_BASE + "phpScripts/StoreToken.php";
@@ -27,6 +27,7 @@ public class EndPoints {
     public static final String URL_GROUP_EXPENSES = URL_BASE + "phpScripts/GetGroupExpenses.php";
     public static final String URL_GROUP_DEBITS = URL_BASE + "phpScripts/GetGroupDebits.php";
     public static final String URL_GROUP_USERS = URL_BASE + "phpScripts/getGroupUsers.php";
+    public static final String URL_DELETE_CONTACT = URL_BASE + "phpScripts/RemoveContact.php";
     public static final String URL_DELETE_DEVICE = URL_BASE + "phpScripts/RemoveDevice.php";
     public static final String URL_DELETE_ITEM = URL_BASE + "phpScripts/RemoveItem.php";
     public static final String URL_UPDATE_DEBITS = URL_BASE + "phpScripts/UpdateDebits.php";

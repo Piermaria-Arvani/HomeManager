@@ -49,6 +49,7 @@ public class ShoppingListActivity extends AppCompatActivity {
     private FloatingActionButton fab;
     RecyclerView mRecyclerView;
     List<String> elements;
+    TextView instructions;
     private String group_id;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +60,7 @@ public class ShoppingListActivity extends AppCompatActivity {
 
         elements = new ArrayList<>();
         mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+        instructions = (TextView) findViewById(R.id.istruzioni) ;
         getShoppingList();
 
         context = getApplicationContext();
@@ -177,10 +179,14 @@ public class ShoppingListActivity extends AppCompatActivity {
                                     JSONObject d = jsonItems.getJSONObject(i);
                                     elements.add(d.getString("item"));
                                 }
-                                text_no_item.setVisibility(View.VISIBLE);
+                                text_no_item.setVisibility(View.GONE);
+                                mRecyclerView.setVisibility(View.VISIBLE);
+                                instructions.setVisibility(View.VISIBLE);
                             }else{
 
                                 text_no_item.setVisibility(View.VISIBLE);
+                                mRecyclerView.setVisibility(View.GONE);
+                                instructions.setVisibility(View.GONE);
                             }
 
 

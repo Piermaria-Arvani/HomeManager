@@ -7,8 +7,11 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -99,9 +102,7 @@ public class ContactsActivity extends AppCompatActivity {
                                                     Toast.makeText(context, "Inserito con successo", Toast.LENGTH_SHORT).show();
                                                     dialog.dismiss();
                                                     adapter.reset();
-                                                    getContacts();
-
-                                                }
+                                                    getContacts();}
 
 
                                             } catch (JSONException e) {
@@ -168,6 +169,68 @@ public class ContactsActivity extends AppCompatActivity {
 
                             adapter = new ContactsAdapter(context, R.layout.row_list_view_contacts, contactList);
                             view.setAdapter(adapter);
+                            view.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+
+                                @Override
+                                public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
+
+                                    //Creating the instance of PopupMenu
+                                    PopupMenu popup = new PopupMenu(ContactsActivity.this, view);
+                                    //Inflating the Popup using xml file
+                                    popup.getMenuInflater().inflate(R.menu.popup_menu, popup.getMenu());
+
+                                    //registering popup with OnMenuItemClickListener
+                                    popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                                        public boolean onMenuItemClick(MenuItem item) {
+                                            if(item.getTitle().equals("Elimina")){
+                                                final String name = contactList.get(position).getName();
+                                                final String number = contactList.get(position).getNumber();
+                                                StringRequest stringRequest = new StringRequest(com.android.volley.Request.Method.POST, EndPoints.URL_DELETE_CONTACT,
+                                                        new Response.Listener<String>() {
+                                                            @Override
+                                                            public void onResponse(String response) {
+                                                                try {
+                                                                    JSONObject obj = new JSONObject(response);
+                                                                    if(obj.getString("message").equals("Contact removed successfully")){
+                                                                        Toast.makeText(context, "Eliminato con successo", Toast.LENGTH_SHORT).show();
+                                                                        adapter.reset();
+                                                                        getContacts();
+                                                                    }
+
+
+                                                                } catch (JSONException e) {
+                                                                    e.printStackTrace();
+                                                                }
+                                                            }
+                                                        },
+                                                        new Response.ErrorListener() {
+                                                            @Override
+                                                            public void onErrorResponse(VolleyError error) {
+                                                            }
+                                                        }) {
+
+                                                    @Override
+                                                    protected Map<String, String> getParams() throws AuthFailureError {
+                                                        Map<String, String> params = new HashMap<>();
+                                                        params.put("group_id", group_id);
+                                                        params.put("contact_name", name);
+                                                        params.put("contact_number", number);
+                                                        return params;
+                                                    }
+                                                };
+
+                                                MyVolley.getInstance(context).addToRequestQueue(stringRequest);
+                                            }
+                                            return true;
+                                        }
+                                    });
+
+                                    popup.show();//showing popup menu
+
+                                    return true;
+                                }
+
+                            });
 
 
                         } catch (JSONException e) {
