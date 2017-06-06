@@ -51,7 +51,7 @@ public class MyNotificationManager {
                 .setContentIntent(resultPendingIntent)
                 .setContentTitle(title)
                 .setSmallIcon(R.mipmap.notification_icon)
-                .setLargeIcon(BitmapFactory.decodeResource(mCtx.getResources(), R.mipmap.notification_icon))
+                .setLargeIcon(BitmapFactory.decodeResource(mCtx.getResources(), R.mipmap.icon))
                 .setContentText(message)
                 .build();
 

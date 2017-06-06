@@ -17,6 +17,6 @@
         android:layout_below="@+id/listViewSummary"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/aggiungi_trasferimento"/>
+        android:text="@string/salda_i_tuoi_debiti"/>
 
 </RelativeLayout>

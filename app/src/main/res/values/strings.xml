@@ -65,4 +65,5 @@
     <string name="inserisci_una_nuova_spesa">Inserisci una nuova spesa</string>
     <string name="importo">Importo</string>
     <string name="elimina">Elimina</string>
+    <string name="salda_i_tuoi_debiti">Salda i tuoi debiti</string>
 </resources>

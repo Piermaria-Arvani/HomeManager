@@ -24,7 +24,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/dialog_element_description"
         android:ems="5"
-        android:inputType="number"
+        android:inputType="numberDecimal"
         android:layout_marginTop="@dimen/activity_vertical_margin"
         android:layout_marginLeft="@dimen/activity_horizontal_margin"
         android:layout_marginRight="@dimen/activity_horizontal_margin"
