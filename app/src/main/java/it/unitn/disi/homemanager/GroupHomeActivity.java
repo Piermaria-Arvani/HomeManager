@@ -127,6 +127,7 @@ public class GroupHomeActivity extends AppCompatActivity implements View.OnClick
             case R.id.aggiungi_membro:
                 final String group_id = String.valueOf(SharedPrefManager.getInstance(context).getGroupId());
                 String qr_body = group_id;
+                System.out.println("qr group id" + qr_body);
                 MultiFormatWriter multiFormatWriter = new MultiFormatWriter();
                 try {
                     BitMatrix bitMatrix =  multiFormatWriter.encode(qr_body, BarcodeFormat.QR_CODE,350,350);

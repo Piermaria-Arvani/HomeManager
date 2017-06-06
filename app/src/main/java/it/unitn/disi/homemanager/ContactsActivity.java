@@ -63,7 +63,7 @@ public class ContactsActivity extends AppCompatActivity {
 
 
                 dialog.show();
-                Button insertButton = (Button) dialog.findViewById(R.id.insert);
+                final Button insertButton = (Button) dialog.findViewById(R.id.insert);
                 Button declineButton = (Button) dialog.findViewById(R.id.annulla);
 
 
@@ -92,6 +92,7 @@ public class ContactsActivity extends AppCompatActivity {
                             return;
                         }else{
                             // send to db
+                            insertButton.setEnabled(false);
                             StringRequest stringRequest = new StringRequest(com.android.volley.Request.Method.POST, EndPoints.URL_INSERT_CONTACT,
                                     new Response.Listener<String>() {
                                         @Override
@@ -100,6 +101,7 @@ public class ContactsActivity extends AppCompatActivity {
                                                 JSONObject obj = new JSONObject(response);
                                                 if(obj.getString("message").equals("Contact number saved")){
                                                     Toast.makeText(context, "Inserito con successo", Toast.LENGTH_SHORT).show();
+                                                    insertButton.setEnabled(true);
                                                     dialog.dismiss();
                                                     adapter.reset();
                                                     getContacts();}

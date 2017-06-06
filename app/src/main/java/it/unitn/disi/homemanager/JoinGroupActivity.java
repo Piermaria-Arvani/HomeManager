@@ -53,14 +53,16 @@ public class JoinGroupActivity extends AppCompatActivity implements View.OnClick
         IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
         if (result != null) {
             //if qrcode has nothing in it
+            System.out.println("risultato "+ result.getContents() );
             if (result.getContents() == null) {
                 Toast.makeText(this, "Result Not Found", Toast.LENGTH_LONG).show();
-            }else if(result.getContents().contains("[0-9]+")){
+            }else {
                 progressDialog = new ProgressDialog(this);
                 progressDialog.setMessage("Loading...");
                 progressDialog.show();
                 //if qr contains data
                 final String group_id =  result.getContents();
+                System.out.println("group_id result" + group_id);
                 final String facebook_id = SharedPrefManager.getInstance(context).getFacebookID();
                 SharedPrefManager.getInstance(context).saveGroupId(Integer.parseInt(group_id));
                 StringRequest stringRequest = new StringRequest(com.android.volley.Request.Method.POST, EndPoints.URL_JOIN_GROUP,
@@ -70,7 +72,9 @@ public class JoinGroupActivity extends AppCompatActivity implements View.OnClick
                                 try {
                                     JSONObject obj = new JSONObject(response);
                                     progressDialog.dismiss();
-                                    if(obj.getString("messagge").equals("Group does not exists")){
+                                    System.out.println("group_id result" + group_id);
+                                    System.out.println(obj);
+                                    if(obj.getString("message").equals("Group does not exists")){
                                         Toast.makeText(context, "Per favore usa QrCode corretto", Toast.LENGTH_LONG).show();
                                     }else{
                                         Toast.makeText(context, "Ora fai parte del gruppo!", Toast.LENGTH_LONG).show();
@@ -100,8 +104,6 @@ public class JoinGroupActivity extends AppCompatActivity implements View.OnClick
                     }
                 };
                 MyVolley.getInstance(this).addToRequestQueue(stringRequest);
-            }else{
-                Toast.makeText(this, "Per favore usa QrCode corretto", Toast.LENGTH_LONG).show();
             }
         } else {
             super.onActivityResult(requestCode, resultCode, data);
