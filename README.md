@@ -1,1 +1,1 @@
-# HomeManager
+# HomeManager: Android client
