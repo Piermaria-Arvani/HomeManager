@@ -29,6 +29,7 @@ public class EndPoints {
     public static final String URL_GROUP_USERS = URL_BASE + "phpScripts/getGroupUsers.php";
     public static final String URL_DELETE_CONTACT = URL_BASE + "phpScripts/RemoveContact.php";
     public static final String URL_DELETE_DEVICE = URL_BASE + "phpScripts/RemoveDevice.php";
+    public static final String URL_DELETE_EVENT = URL_BASE + "phpScripts/RemoveEvent.php";
     public static final String URL_DELETE_ITEM = URL_BASE + "phpScripts/RemoveItem.php";
     public static final String URL_UPDATE_DEBITS = URL_BASE + "phpScripts/UpdateDebits.php";
     public static final String URL_CONTROL_LOGIN = URL_BASE + "phpScripts/ControlLogin.php";

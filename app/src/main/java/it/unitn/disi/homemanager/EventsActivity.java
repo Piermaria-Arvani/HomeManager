@@ -9,8 +9,11 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ListView;
@@ -39,7 +42,6 @@ public class EventsActivity extends AppCompatActivity {
 
     private Context context;
     private FloatingActionButton fab;
-    private ProgressDialog progressDialog;
     private Calendar calendar;
     private SimpleDateFormat mdformat;
     private String date;
@@ -129,8 +131,6 @@ public class EventsActivity extends AppCompatActivity {
                         final String description =  descriptionText.getText().toString();
                         String old_date =  dateText.getText().toString();
                         final String hour =  getHour + ":" + getMinute;
-                        System.out.println("descrizione evento" + description);
-                        System.out.println("Orario " + hour);
                         final String OLD_FORMAT = "dd/MM/yyyy";
                         final String NEW_FORMAT = "yyyy/MM/dd";
 
@@ -144,8 +144,6 @@ public class EventsActivity extends AppCompatActivity {
                         }
                         sdf.applyPattern(NEW_FORMAT);
                         final String newDateString = sdf.format(d);
-
-                        System.out.println("vecchia " + old_date + "nuova" + newDateString);
 
                         if (description.length()==0||newDateString.length()==0||hour.length()==0) {
                             Toast.makeText(context, "Devi riempire tutti i campi per poter procedere", Toast.LENGTH_SHORT).show();
@@ -216,13 +214,10 @@ public class EventsActivity extends AppCompatActivity {
                         try {
                             JSONObject obj = new JSONObject(response);
 
-
-
                             ListView view = (ListView) findViewById(R.id.listView);
                             final ArrayList<Event> eventList = new ArrayList<>();
 
 
-                            //riempimento sezione eventi odierni
                             if(Integer.parseInt(obj.getString("numberOfEvents")) > 0) {
 
 
@@ -230,10 +225,12 @@ public class EventsActivity extends AppCompatActivity {
                                 for (int i = 0; i < jsonEventsDescriptions.length(); i++) {
                                     Event event = new Event();
                                     JSONObject d = jsonEventsDescriptions.getJSONObject(i);
+                                    String id = d.getString("id");
                                     String event_date = getDateWellFormed(d.getString("event_date"));
                                     String event_hour = (d.getString("event_hour")).substring(0,5);
                                     String description =  d.getString("description") ;
-
+                                    System.out.println("id evento" + id);
+                                    event.setId(id);
                                     event.setEventDate(event_date);
                                     event.setEventDescription(description);
                                     event.setEventHour(event_hour);
@@ -245,14 +242,68 @@ public class EventsActivity extends AppCompatActivity {
                                 counter +=1;
                                 view.setAdapter(adapter);
                                 textView.setVisibility(View.GONE);
+                                view.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+
+                                    @Override
+                                    public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
+
+                                        //Creating the instance of PopupMenu
+                                        PopupMenu popup = new PopupMenu(EventsActivity.this, view);
+                                        //Inflating the Popup using xml file
+                                        popup.getMenuInflater().inflate(R.menu.popup_menu, popup.getMenu());
+
+                                        //registering popup with OnMenuItemClickListener
+                                        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                                            public boolean onMenuItemClick(MenuItem item) {
+                                                if(item.getTitle().equals("Elimina")){
+                                                    final String id = eventList.get(position).getId();
+                                                    StringRequest stringRequest = new StringRequest(com.android.volley.Request.Method.POST, EndPoints.URL_DELETE_EVENT,
+                                                            new Response.Listener<String>() {
+                                                                @Override
+                                                                public void onResponse(String response) {
+                                                                    try {
+                                                                        JSONObject obj = new JSONObject(response);
+                                                                        if(obj.getString("message").equals("Event removed successfully")){
+                                                                            Toast.makeText(context, "Eliminato con successo", Toast.LENGTH_SHORT).show();
+                                                                            adapter.reset();
+                                                                            getEvents();
+                                                                        }
+                                                                    } catch (JSONException e) {
+                                                                        e.printStackTrace();
+                                                                    }
+                                                                }
+                                                            },
+                                                            new Response.ErrorListener() {
+                                                                @Override
+                                                                public void onErrorResponse(VolleyError error) {
+                                                                }
+                                                            }) {
+
+                                                        @Override
+                                                        protected Map<String, String> getParams() throws AuthFailureError {
+                                                            Map<String, String> params = new HashMap<>();
+                                                            params.put("id", id);
+                                                            return params;
+                                                        }
+                                                    };
+
+                                                    MyVolley.getInstance(context).addToRequestQueue(stringRequest);
+                                                }
+                                                return true;
+                                            }
+                                        });
+
+                                        popup.show();//showing popup menu
+
+                                        return true;
+                                    }
+
+                                });
 
                             }else{
                                 TextView text_no_eventi= (TextView) findViewById(R.id.text_no_eventi);
                                 text_no_eventi.setVisibility(View.VISIBLE);
                             }
-
-
-                            System.out.println(obj);
 
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -263,7 +314,6 @@ public class EventsActivity extends AppCompatActivity {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        progressDialog.dismiss();
                         Toast.makeText(EventsActivity.this, error.getMessage(), Toast.LENGTH_LONG).show();
                     }
                 }) {
@@ -292,7 +342,6 @@ public class EventsActivity extends AppCompatActivity {
         }
         String data = String.valueOf(date);
 
-        System.out.println("data" + data);
         String[] splited = data.split("\\s+");
         String nomeMese  = getMonthNameInItalian(splited[1]);
         String numeroGiorno =splited[2];
@@ -351,9 +400,6 @@ public class EventsActivity extends AppCompatActivity {
                 @Override
                 public void onDateSet(DatePicker arg0, int arg1, int arg2, int arg3) {
 
-                    // arg1 = year
-                    // arg2 = month
-                    // arg3 = day
                     showDate(arg1, arg2+1, arg3);
                 }
             };

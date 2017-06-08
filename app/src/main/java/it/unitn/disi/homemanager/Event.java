@@ -7,19 +7,24 @@ package it.unitn.disi.homemanager;
 
 public class Event {
 
+
+
+    private String id;
     private String eventDescription;
     private String eventDate;
     private String eventHour;
 
 
 
+    public String getId() {return id;}
+
+    public void setId(String id) {this.id = id;}
+
     public String getEventDescription() {
         return eventDescription;
     }
 
-    public void setEventDescription(String eventDescription) {
-        this.eventDescription = eventDescription;
-    }
+    public void setEventDescription(String eventDescription) {this.eventDescription = eventDescription;}
 
     public String getEventHour() {
         return eventHour;
@@ -36,5 +41,7 @@ public class Event {
     public void setEventDate(String eventDate) {
         this.eventDate = eventDate;
     }
+
+
 
 }
