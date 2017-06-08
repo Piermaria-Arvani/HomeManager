@@ -158,9 +158,11 @@ public class ContactsActivity extends AppCompatActivity {
                             for (int i = 0; i < jsonContacts.length(); i++) {
                                 Contact contact = new Contact();
                                 JSONObject d = jsonContacts.getJSONObject(i);
+                                String id = d.getString("id");
                                 String name = d.getString("contact_name");
                                 String number = d.getString("contact_number");
 
+                                contact.setId(id);
                                 contact.setName(name);
                                 contact.setNumber(number);
 
@@ -185,8 +187,7 @@ public class ContactsActivity extends AppCompatActivity {
                                     popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                                         public boolean onMenuItemClick(MenuItem item) {
                                             if(item.getTitle().equals("Elimina")){
-                                                final String name = contactList.get(position).getName();
-                                                final String number = contactList.get(position).getNumber();
+                                                final String id = contactList.get(position).getId();
                                                 StringRequest stringRequest = new StringRequest(com.android.volley.Request.Method.POST, EndPoints.URL_DELETE_CONTACT,
                                                         new Response.Listener<String>() {
                                                             @Override
@@ -214,9 +215,7 @@ public class ContactsActivity extends AppCompatActivity {
                                                     @Override
                                                     protected Map<String, String> getParams() throws AuthFailureError {
                                                         Map<String, String> params = new HashMap<>();
-                                                        params.put("group_id", group_id);
-                                                        params.put("contact_name", name);
-                                                        params.put("contact_number", number);
+                                                        params.put("id", id);
                                                         return params;
                                                     }
                                                 };

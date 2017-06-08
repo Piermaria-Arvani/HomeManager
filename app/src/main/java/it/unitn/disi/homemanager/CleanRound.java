@@ -5,6 +5,9 @@ package it.unitn.disi.homemanager;
  */
 
 public class CleanRound {
+
+
+
     private String name;
     private String facebook_id;
     private String description;
@@ -12,27 +15,17 @@ public class CleanRound {
 
 
 
-    public String getFacebook_id() {
-        return facebook_id;
-    }
+    public String getFacebook_id() {return facebook_id;}
 
     public void setFacebook_id(String facebook_id) {this.facebook_id = facebook_id;}
 
-    public String getName() {
-        return name;
-    }
+    public String getName() {return name;}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+    public void setName(String name) {this.name = name;}
 
-    public String getCleanDescription() {
-        return description;
-    }
+    public String getCleanDescription() {return description;}
 
-    public void setCleanDescription(String description) {
-        this.description = description;
-    }
+    public void setCleanDescription(String description) {this.description = description;}
 
     public boolean getDone () {return done;}
 
