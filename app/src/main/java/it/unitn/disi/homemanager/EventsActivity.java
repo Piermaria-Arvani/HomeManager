@@ -106,7 +106,7 @@ public class EventsActivity extends AppCompatActivity {
 
 
                 dialog.show();
-                Button insertButton = (Button) dialog.findViewById(R.id.insert);
+                final Button insertButton = (Button) dialog.findViewById(R.id.insert);
                 Button declineButton = (Button) dialog.findViewById(R.id.annulla);
 
 
@@ -165,6 +165,7 @@ public class EventsActivity extends AppCompatActivity {
                             Toast.makeText(context, "Devi riempire tutti i campi per poter procedere", Toast.LENGTH_SHORT).show();
                         }else{
                             // send to db
+                            insertButton.setEnabled(false);
                             StringRequest stringRequest = new StringRequest(com.android.volley.Request.Method.POST, EndPoints.URL_INSERT_EVENT,
                                     new Response.Listener<String>() {
                                         @Override
@@ -174,6 +175,7 @@ public class EventsActivity extends AppCompatActivity {
                                                 if(obj.getString("message").equals("Event registered successfully")){
                                                     Toast.makeText(context, "Evento Inserito con successo", Toast.LENGTH_SHORT).show();
                                                     dialog.dismiss();
+                                                    insertButton.setEnabled(true);
                                                     if (counter>0) {
                                                         adapter.reset();
                                                     }
