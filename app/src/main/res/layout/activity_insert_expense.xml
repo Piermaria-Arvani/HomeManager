@@ -6,23 +6,39 @@
     tools:context=".InsertExpenseActivity">
 
 
-
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/description_row"
+    android:orientation="horizontal">
     <EditText
         android:id="@+id/dialog_element_description"
         android:hint="@string/descrizione_spesa"
-        android:layout_width="fill_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/activity_vertical_margin"
         android:layout_marginLeft="@dimen/activity_horizontal_margin"
-        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:ems="12"
+        android:layout_marginStart="@dimen/activity_horizontal_margin"
         android:textSize="20sp" />
+    <ImageButton
+        android:id="@+id/btnSpeak"
+        android:contentDescription="@string/mic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="1sp"
+        android:layout_marginStart="1sp"
+        android:layout_marginTop="@dimen/activity_horizontal_margin"
+        android:background="@null"
+        android:src="@drawable/mic" />
+</LinearLayout>
 
     <EditText
         android:id="@+id/dialog_element_cost"
         android:hint="@string/euro"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/dialog_element_description"
+        android:layout_below="@+id/description_row"
         android:ems="5"
         android:inputType="numberDecimal"
         android:layout_marginTop="@dimen/activity_vertical_margin"

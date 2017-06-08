@@ -13,16 +13,16 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/activity_vertical_margin"
         android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginStart="@dimen/activity_horizontal_margin"
         android:layout_marginRight="@dimen/activity_horizontal_margin"
-        android:text=""
-        android:textSize="20sp"
-        />
+        android:layout_marginEnd="@dimen/activity_horizontal_margin"
+        android:textSize="20sp" />
 
     <EditText
         android:id="@+id/dialog_insert_number"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:ems="7"
+        android:ems="8"
         android:inputType="phone"
         android:text=""
         android:hint="@string/inserisci_numero"
@@ -31,8 +31,6 @@
         android:layout_marginLeft="@dimen/activity_horizontal_margin"
         android:layout_marginRight="@dimen/activity_horizontal_margin"
         android:layout_marginBottom="@dimen/activity_vertical_margin"/>
-
-
 
     <Button
         android:id="@+id/annulla"
@@ -43,8 +41,7 @@
         android:layout_marginStart="@dimen/activity_horizontal_margin"
         android:layout_below="@+id/dialog_insert_number"
         android:background="@color/zxing_viewfinder_laser"
-        android:layout_marginBottom="@dimen/activity_vertical_margin"
-        />
+        android:layout_marginBottom="@dimen/activity_vertical_margin" />
     <Button
         android:id="@+id/insert"
         android:layout_width="wrap_content"
@@ -54,6 +51,7 @@
         android:layout_toEndOf="@id/annulla"
         android:layout_toRightOf="@id/annulla"
         android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginStart="@dimen/activity_horizontal_margin"
         android:background="#80ff80"
         android:layout_marginBottom="@dimen/activity_vertical_margin"
         />

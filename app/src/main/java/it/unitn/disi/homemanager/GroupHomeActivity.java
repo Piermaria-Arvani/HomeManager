@@ -12,6 +12,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -52,11 +53,11 @@ public class GroupHomeActivity extends AppCompatActivity implements View.OnClick
     private TextView moneyText;
     private String eventString;
     private String cleanString;
-    private ImageButton calendarButton;
-    private ImageButton shoppingButton;
-    private  ImageButton cleanButton;
-    private  ImageButton contactsButton;
-    private ImageButton moneyButton;
+    private RelativeLayout calendar_row;
+    private RelativeLayout shopping_row;
+    private RelativeLayout clean_row;
+    private RelativeLayout contact_row;
+    private RelativeLayout money_row;
     private int counter_back_pressed;
 
     @Override
@@ -68,22 +69,22 @@ public class GroupHomeActivity extends AppCompatActivity implements View.OnClick
         calendarText = (TextView) findViewById(R.id.calendar_text);
         cleanText = (TextView) findViewById(R.id.cleaning_text);
         moneyText =(TextView) findViewById(R.id.money_text);
-        calendarButton = (ImageButton) findViewById(R.id.calendar_button);
-        shoppingButton = (ImageButton) findViewById(R.id.shoppig_button);
-        cleanButton = (ImageButton) findViewById(R.id.cleaning_button);
-        contactsButton =(ImageButton) findViewById(R.id.contacts_button);
-        moneyButton = (ImageButton) findViewById(R.id.money_button);
+        calendar_row = (RelativeLayout) findViewById(R.id.calendar_row);
+        shopping_row = (RelativeLayout) findViewById(R.id.shoppig_row);
+        clean_row = (RelativeLayout) findViewById(R.id.cleaning_row);
+        contact_row = (RelativeLayout) findViewById(R.id.contacts_row);
+        money_row = (RelativeLayout) findViewById(R.id.money_row);
 
         calendar = Calendar.getInstance();
         mdformat = new SimpleDateFormat("yyyy-MM-dd ");
         date = mdformat.format(calendar.getTime());
         System.out.println("data" + date);
 
-        calendarButton.setOnClickListener(this);
-        shoppingButton.setOnClickListener(this);
-        cleanButton.setOnClickListener(this);
-        contactsButton.setOnClickListener(this);
-        moneyButton.setOnClickListener(this);
+        calendar_row.setOnClickListener(this);
+        shopping_row.setOnClickListener(this);
+        clean_row.setOnClickListener(this);
+        contact_row.setOnClickListener(this);
+        money_row.setOnClickListener(this);
 
         getGroupInfo();
         context= getApplicationContext();
@@ -95,19 +96,19 @@ public class GroupHomeActivity extends AppCompatActivity implements View.OnClick
 
     @Override
     public void onClick(View view) {
-        if (view == calendarButton) {
+        if (view == calendar_row) {
             startActivity(new Intent(this, EventsActivity.class));
         }
-        if (view == shoppingButton){
+        if (view == shopping_row){
             startActivity(new Intent(this,ShoppingListActivity.class));
         }
-        if (view == cleanButton){
+        if (view == clean_row){
             startActivity(new Intent(this,CleanRoundActivity.class));
         }
-        if (view == contactsButton) {
+        if (view == contact_row) {
             startActivity(new Intent(this, ContactsActivity.class));
         }
-        if (view == moneyButton){
+        if (view == money_row){
             startActivity(new Intent(this, WalletActivity.class));
         }
     }

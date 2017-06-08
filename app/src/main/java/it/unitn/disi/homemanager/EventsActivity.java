@@ -3,10 +3,12 @@ package it.unitn.disi.homemanager;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.speech.RecognizerIntent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.PopupMenu;
@@ -16,6 +18,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -36,6 +39,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 public class EventsActivity extends AppCompatActivity {
@@ -53,10 +57,14 @@ public class EventsActivity extends AppCompatActivity {
     private int year, month, day;;
     private TextView dateView;
     private TimePicker timePicker;
+    private ImageButton btnSpeak;
+    private final int REQ_CODE_SPEECH_INPUT = 100;
+    private Dialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_events);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         textView = (TextView) findViewById(R.id.text_no_eventi);
@@ -86,12 +94,13 @@ public class EventsActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 // Create custom dialog object
-                final Dialog dialog = new Dialog(EventsActivity.this);
+                dialog = new Dialog(EventsActivity.this);
                 // Include dialog.xml file
                 dialog.setContentView(R.layout.event_dialog);
                 // Set dialog title
                 dialog.setTitle("Create Event");
                 dateView = (TextView) dialog.findViewById(R.id.dialog_event_date_text);
+                btnSpeak = (ImageButton) dialog.findViewById(R.id.btnSpeak);
                 showDate(year, month+1, day);
                 // set values for custom dialog components
 
@@ -100,6 +109,13 @@ public class EventsActivity extends AppCompatActivity {
                 Button insertButton = (Button) dialog.findViewById(R.id.insert);
                 Button declineButton = (Button) dialog.findViewById(R.id.annulla);
 
+
+                btnSpeak.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        promptSpeechInput();
+                    }
+                });
 
                 // if decline button is clicked, close the custom dialog
                 declineButton.setOnClickListener(new View.OnClickListener() {
@@ -147,7 +163,6 @@ public class EventsActivity extends AppCompatActivity {
 
                         if (description.length()==0||newDateString.length()==0||hour.length()==0) {
                             Toast.makeText(context, "Devi riempire tutti i campi per poter procedere", Toast.LENGTH_SHORT).show();
-                            return;
                         }else{
                             // send to db
                             StringRequest stringRequest = new StringRequest(com.android.volley.Request.Method.POST, EndPoints.URL_INSERT_EVENT,
@@ -412,5 +427,43 @@ public class EventsActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         startActivity(new Intent(context, GroupHomeActivity.class));
+    }
+
+    /**
+     * Showing google speech input dialog
+     * */
+    private void promptSpeechInput() {
+        Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
+                RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault());
+        intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "Parla ora");
+        try {
+            startActivityForResult(intent, REQ_CODE_SPEECH_INPUT);
+        } catch (ActivityNotFoundException a) {
+            Toast.makeText(getApplicationContext(), "Speech not supported", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    /**
+     * Receiving speech input
+     * */
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        TextView descriptionText = (TextView) dialog.findViewById(R.id.dialog_element_description);
+
+        switch (requestCode) {
+            case REQ_CODE_SPEECH_INPUT: {
+                if (resultCode == RESULT_OK && null != data) {
+
+                    ArrayList<String> result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+                    descriptionText.setText(result.get(0));
+                }
+                break;
+            }
+
+        }
     }
 }

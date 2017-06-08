@@ -29,12 +29,14 @@
             android:orientation="vertical">
 
             <RelativeLayout
+                android:id="@+id/calendar_row"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/activity_horizontal_margin"
                 android:layout_marginRight="@dimen/activity_horizontal_margin"
                 android:layout_marginTop="@dimen/activity_vertical_margin"
-                android:background="@drawable/customborder">
+                android:background="@drawable/customborder"
+                android:clickable="true">
 
                 <ImageButton
                     android:id="@+id/calendar_button"
@@ -42,6 +44,7 @@
                     android:layout_height="wrap_content"
                     android:background="@null"
                     android:contentDescription="@string/calendar_image"
+                    android:clickable="false"
                     android:src="@drawable/calendar" />
 
                 <TextView
@@ -57,12 +60,14 @@
             </RelativeLayout>
 
             <RelativeLayout
+                android:id="@+id/money_row"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/activity_horizontal_margin"
                 android:layout_marginRight="@dimen/activity_horizontal_margin"
                 android:layout_marginTop="@dimen/activity_vertical_margin"
-                android:background="@drawable/customborder">
+                android:background="@drawable/customborder"
+                android:clickable="true">
 
                 <ImageButton
                     android:id="@+id/money_button"
@@ -70,27 +75,30 @@
                     android:layout_height="wrap_content"
                     android:background="@null"
                     android:contentDescription="@string/money"
-                    android:src="@drawable/money" />
+                    android:src="@drawable/money"
+                    android:clickable="false"/>
 
                 <TextView
                     android:id="@+id/money_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="100dp"
+                    android:layout_marginStart="100dp"
                     android:layout_marginTop="@dimen/vertical_margin_for_text"
-                    android:text=""
                     android:textColor="#000000"
                     android:textSize="20sp"
                     android:textStyle="bold" />
             </RelativeLayout>
 
             <RelativeLayout
+                android:id="@+id/cleaning_row"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/activity_horizontal_margin"
                 android:layout_marginRight="@dimen/activity_horizontal_margin"
                 android:layout_marginTop="@dimen/activity_vertical_margin"
-                android:background="@drawable/customborder">
+                android:background="@drawable/customborder"
+                android:clickable="true">
 
                 <ImageButton
                     android:id="@+id/cleaning_button"
@@ -98,6 +106,7 @@
                     android:layout_height="wrap_content"
                     android:background="@null"
                     android:contentDescription="@string/cleaning"
+                    android:clickable="false"
                     android:src="@drawable/cleaning" />
 
                 <TextView
@@ -105,20 +114,22 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="100dp"
+                    android:layout_marginStart="100dp"
                     android:layout_marginTop="@dimen/vertical_margin_for_text"
-                    android:text=""
                     android:textColor="#000000"
                     android:textSize="20sp"
                     android:textStyle="bold" />
             </RelativeLayout>
 
             <RelativeLayout
+                android:id="@+id/shoppig_row"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/activity_horizontal_margin"
                 android:layout_marginRight="@dimen/activity_horizontal_margin"
                 android:layout_marginTop="@dimen/activity_vertical_margin"
-                android:background="@drawable/customborder">
+                android:background="@drawable/customborder"
+                android:clickable="true">
 
                 <ImageButton
                     android:id="@+id/shoppig_button"
@@ -126,13 +137,15 @@
                     android:layout_height="wrap_content"
                     android:background="@null"
                     android:contentDescription="@string/cleaning"
-                    android:src="@drawable/shopping_list" />
+                    android:src="@drawable/shopping_list"
+                    android:clickable="false"/>
 
                 <TextView
                     android:id="@+id/shopping_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="100dp"
+                    android:layout_marginStart="100dp"
                     android:layout_marginTop="@dimen/activity_vertical_margin"
                     android:text="@string/lista_della_spesa"
                     android:textColor="#000000"
@@ -141,12 +154,14 @@
             </RelativeLayout>
 
             <RelativeLayout
+                android:id="@+id/contacts_row"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/activity_horizontal_margin"
                 android:layout_marginRight="@dimen/activity_horizontal_margin"
                 android:layout_marginTop="@dimen/activity_vertical_margin"
-                android:background="@drawable/customborder">
+                android:background="@drawable/customborder"
+                android:clickable="true">
 
                 <ImageButton
                     android:id="@+id/contacts_button"
@@ -154,12 +169,14 @@
                     android:layout_height="wrap_content"
                     android:background="@null"
                     android:contentDescription="@string/contacts"
-                    android:src="@drawable/contacts" />
+                    android:src="@drawable/contacts"
+                    android:clickable="false"/>
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="100dp"
+                    android:layout_marginStart="100dp"
                     android:layout_marginTop="@dimen/activity_vertical_margin"
                     android:text="@string/numeri_utili"
                     android:textColor="#000000"

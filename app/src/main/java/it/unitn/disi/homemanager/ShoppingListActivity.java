@@ -2,6 +2,7 @@ package it.unitn.disi.homemanager;
 
 
 import android.app.Dialog;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Canvas;
@@ -11,6 +12,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
+import android.speech.RecognizerIntent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
@@ -23,6 +25,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -40,6 +43,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 public class ShoppingListActivity extends AppCompatActivity {
@@ -51,6 +55,10 @@ public class ShoppingListActivity extends AppCompatActivity {
     List<String> elements;
     TextView instructions;
     private String group_id;
+    private Dialog dialog;
+    private final int REQ_CODE_SPEECH_INPUT = 100;
+    private ImageButton btnSpeak;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,11 +82,20 @@ public class ShoppingListActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 // Create custom dialog object
-                final Dialog dialog = new Dialog(ShoppingListActivity.this);
+                dialog = new Dialog(ShoppingListActivity.this);
                 // Include dialog.xml file
                 dialog.setContentView(R.layout.shopping_list_dialog);
                 // Set dialog title
                 dialog.setTitle("Insert Item");
+
+                btnSpeak = (ImageButton) dialog.findViewById(R.id.btnSpeak);
+
+                btnSpeak.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        promptSpeechInput();
+                    }
+                });
 
                 // set values for custom dialog components
                 dialog.show();
@@ -474,4 +491,43 @@ public class ShoppingListActivity extends AppCompatActivity {
 
         }
     }
+
+    /**
+     * Showing google speech input dialog
+     * */
+    private void promptSpeechInput() {
+        Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
+                RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault());
+        intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "Parla ora");
+        try {
+            startActivityForResult(intent, REQ_CODE_SPEECH_INPUT);
+        } catch (ActivityNotFoundException a) {
+            Toast.makeText(getApplicationContext(), "Speech not supported", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    /**
+     * Receiving speech input
+     * */
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        TextView descriptionText = (TextView) dialog.findViewById(R.id.dialog_item);
+
+        switch (requestCode) {
+            case REQ_CODE_SPEECH_INPUT: {
+                if (resultCode == RESULT_OK && null != data) {
+
+                    ArrayList<String> result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+                    descriptionText.setText(result.get(0));
+                }
+                break;
+            }
+
+        }
+    }
+
 }
